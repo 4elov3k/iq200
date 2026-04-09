@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
+import { Menu, PhoneCall, Send } from "lucide-react";
+
+import { MaxIcon } from "./icons/MaxIcon";
 
 interface HeroProps {
   onMenuToggle: () => void;
+  onOpenLeadForm: () => void;
 }
 
 const logoSrc = "/iq200/logo.webp";
 const heroBgSrc = "/iq200/bg-02-scaled.webp";
 const heroBannerSrc = "/iq200/02.png";
+const telegramHref = "https://t.me/iq200ru";
+const maxHref = "https://max.ru/";
 
-export function Hero({ onMenuToggle }: HeroProps) {
+export function Hero({ onMenuToggle, onOpenLeadForm }: HeroProps) {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -49,79 +55,131 @@ export function Hero({ onMenuToggle }: HeroProps) {
       <div className="absolute inset-0 bg-gradient-to-b from-[rgba(23,23,23,0.35)] via-[rgba(23,23,23,0.22)] to-[rgba(23,23,23,0.75)]" />
 
       {/* Header */}
-      <header className="relative z-20 flex items-center justify-between px-5 py-5 md:px-20 md:py-10 max-[1080px]:px-10 max-[1080px]:py-6 [@media(max-height:820px)]:py-5 [@media(max-height:760px)]:py-4">
-        <div className="flex items-center gap-4">
-          <div className="w-8 md:w-16 h-8 md:h-16 overflow-hidden flex-shrink-0">
-            <img
-              src={logoSrc}
-              alt="IQ 200"
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <div className="hidden md:block">
-            <div className="text-white font-semibold text-lg md:text-2xl">
-              IQ 200
+      <header className="relative z-20 px-5 py-5 md:px-20 md:py-8 max-[1080px]:px-10 max-[1080px]:py-6 [@media(max-height:820px)]:py-5 [@media(max-height:760px)]:py-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-[1.75rem] border border-white/10 bg-[rgba(13,16,13,0.52)] px-4 py-3 shadow-[0_18px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl md:px-6 xl:grid xl:grid-cols-[auto_1fr_auto] xl:gap-6">
+          <div className="flex min-w-0 items-center gap-3 md:gap-4">
+            <div className="h-9 w-9 overflow-hidden flex-shrink-0 md:h-14 md:w-14">
+              <img
+                src={logoSrc}
+                alt="IQ 200"
+                className="h-full w-full object-contain"
+              />
             </div>
-            <div className="text-white/80 text-xs uppercase tracking-wider">
-              Digital-агентство полного цикла
+            <div className="min-w-0">
+              <div className="text-base font-semibold leading-none text-white md:text-[1.75rem]">
+                IQ 200
+              </div>
+              <div className="mt-1 hidden text-[11px] uppercase tracking-[0.18em] text-white/65 md:block">
+                Digital-агентство полного цикла
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8 text-white text-sm">
-          <button onClick={() => scrollToSection("services")} className="hover:text-[var(--brand-accent)] transition-colors">
-            Услуги
-          </button>
-          <button onClick={() => scrollToSection("process")} className="hover:text-[var(--brand-accent)] transition-colors">
-            Процесс
-          </button>
-          <button onClick={() => scrollToSection("faq")} className="hover:text-[var(--brand-accent)] transition-colors">
-            Вопросы
-          </button>
-          <button onClick={() => scrollToSection("contact")} className="hover:text-[var(--brand-accent)] transition-colors">
-            Контакты
-          </button>
-        </nav>
+          <nav className="hidden items-center justify-center gap-6 text-sm font-medium text-white/90 xl:flex">
+            <button onClick={() => scrollToSection("services")} className="transition-colors hover:text-[var(--brand-accent)]">
+              Услуги
+            </button>
+            <button onClick={() => scrollToSection("process")} className="transition-colors hover:text-[var(--brand-accent)]">
+              Процесс
+            </button>
+            <button onClick={() => scrollToSection("cases")} className="transition-colors hover:text-[var(--brand-accent)]">
+              Кейсы
+            </button>
+            <button onClick={() => scrollToSection("faq")} className="transition-colors hover:text-[var(--brand-accent)]">
+              Вопросы
+            </button>
+            <button onClick={() => scrollToSection("contact")} className="transition-colors hover:text-[var(--brand-accent)]">
+              Контакты
+            </button>
+          </nav>
 
-        {/* Contact Info */}
-        <div className="hidden lg:flex items-center gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#60D66A] to-[#20B038] flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-              </svg>
+          <div className="hidden items-center gap-3 lg:flex xl:justify-self-end">
+            <a
+              href="tel:+79090891889"
+              className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-white transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)]"
+              aria-label="Позвонить"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white">
+                <PhoneCall className="h-4 w-4" strokeWidth={1.9} />
+              </span>
+              <span className="hidden text-left xl:block">
+                <span className="block text-[0.98rem] font-semibold leading-tight text-white">
+                  +7 (909) 089 18 89
+                </span>
+                <span className="mt-0.5 block text-[11px] leading-tight text-white/55">
+                  Пн-Пт, 8:00-20:00
+                </span>
+              </span>
+            </a>
+            <div className="flex items-center gap-2">
+              <a
+                href={telegramHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)]"
+                aria-label="Telegram"
+              >
+                <Send className="h-4 w-4" strokeWidth={2} />
+              </a>
+              <a
+                href={maxHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)]"
+                aria-label="MAX"
+              >
+                <MaxIcon className="h-4 w-4" />
+              </a>
             </div>
-            <div>
-              <div className="text-white font-bold text-lg">+7 (909) 089 18 89</div>
-              <div className="text-white/70 text-xs">Работаем с 8:00 до 20:00</div>
-            </div>
+            <button
+              onClick={onOpenLeadForm}
+              className="rounded-full border border-[var(--brand-accent)] bg-[color:rgba(151,195,44,0.08)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[color:rgba(151,195,44,0.16)]"
+            >
+              Заказать звонок
+            </button>
           </div>
-          <button 
-            onClick={() => scrollToSection("contact")}
-            className="px-6 py-2.5 border-2 border-[var(--brand-accent)] text-white text-sm font-bold rounded-full hover:bg-[color:rgba(151,195,44,0.1)] transition-all uppercase"
+
+          <div className="flex items-center gap-2 lg:hidden">
+            <a
+              href="tel:+79090891889"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition hover:border-[var(--brand-accent)]"
+              aria-label="Позвонить"
+            >
+              <PhoneCall className="h-4 w-4" strokeWidth={1.9} />
+            </a>
+            <a
+              href={telegramHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition hover:border-[var(--brand-accent)]"
+              aria-label="Telegram"
+            >
+              <Send className="h-4 w-4" strokeWidth={2} />
+            </a>
+            <button
+              onClick={onMenuToggle}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition hover:border-[var(--brand-accent)]"
+              aria-label="Menu"
+            >
+              <Menu className="h-4 w-4" strokeWidth={2} />
+            </button>
+          </div>
+
+          <button
+            onClick={onMenuToggle}
+            className="hidden h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition hover:border-[var(--brand-accent)] xl:hidden"
+            aria-label="Menu"
           >
-            Заказать звонок
+            <Menu className="h-4 w-4" strokeWidth={2} />
           </button>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={onMenuToggle}
-          className="lg:hidden flex flex-col gap-1.5 p-2"
-          aria-label="Menu"
-        >
-          <div className="w-5 h-0.5 bg-white rounded" />
-          <div className="w-3.5 h-0.5 bg-white rounded ml-auto" />
-          <div className="w-5 h-0.5 bg-white rounded" />
-        </button>
       </header>
 
       {/* Hero Content */}
       <div className="relative z-10 flex-1 px-5 py-12 md:px-20 md:py-20 max-[1080px]:px-10 max-[1080px]:py-10 [@media(max-height:820px)]:py-7 [@media(max-height:760px)]:py-5">
         <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(420px,540px)] max-[1080px]:max-w-5xl max-[1080px]:gap-7 [@media(max-height:820px)]:gap-6 [@media(max-height:760px)]:gap-4">
           <div className="space-y-6 text-center lg:text-left md:space-y-8 max-[1080px]:space-y-5 [@media(max-height:820px)]:space-y-4 [@media(max-height:760px)]:space-y-3">
-          <h1 className="text-3xl font-bold leading-tight text-white md:text-5xl lg:text-6xl max-[1080px]:text-[2.7rem] max-[1080px]:leading-[1.08] [@media(max-height:820px)]:text-[clamp(2.75rem,4.7vw,4.6rem)] [@media(max-height:820px)]:leading-[1.02] [@media(max-height:760px)]:text-[clamp(2.4rem,4.2vw,4rem)]">
+          <h1 className="text-[2.55rem] font-bold leading-[1.04] text-white md:text-[4rem] lg:text-[4.75rem] max-[1080px]:text-[2.45rem] max-[1080px]:leading-[1.06] [@media(max-height:820px)]:text-[clamp(2.45rem,4.2vw,4.1rem)] [@media(max-height:820px)]:leading-[1.01] [@media(max-height:760px)]:text-[clamp(2.15rem,3.75vw,3.6rem)]">
             Привлекаем B2B-заявки для{" "}
             <span className="bg-gradient-to-r from-[var(--brand-gradient-start)] via-[var(--brand-gradient-mid)] to-[var(--brand-gradient-end)] bg-clip-text text-transparent">
               производителей и поставщиков
@@ -129,42 +187,14 @@ export function Hero({ onMenuToggle }: HeroProps) {
             промышленного оборудования
           </h1>
 
-          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/80 md:text-xl lg:mx-0 max-[1080px]:max-w-2xl max-[1080px]:text-[1.05rem] max-[1080px]:leading-7 [@media(max-height:820px)]:text-base [@media(max-height:820px)]:leading-6 [@media(max-height:760px)]:max-w-[52rem] [@media(max-height:760px)]:text-[0.95rem] [@media(max-height:760px)]:leading-5">
+          <p className="mx-auto max-w-3xl text-[1.15rem] leading-8 text-white/82 md:text-[1.38rem] lg:mx-0 max-[1080px]:max-w-2xl max-[1080px]:text-[1.14rem] max-[1080px]:leading-7 [@media(max-height:820px)]:text-[1.02rem] [@media(max-height:820px)]:leading-6 [@media(max-height:760px)]:max-w-[52rem] [@media(max-height:760px)]:text-[0.98rem] [@media(max-height:760px)]:leading-5">
             Помогаем производственным компаниям по России получать целевые обращения через сайт, SEO и рекламу без хаотичного маркетинга и пустых обещаний
           </p>
-
-          {/* Key Points */}
-          <div className="mx-auto grid max-w-3xl grid-cols-1 gap-3 text-left text-sm md:grid-cols-2 md:gap-4 md:text-base lg:mx-0 max-[1080px]:gap-x-3 max-[1080px]:gap-y-2.5 max-[1080px]:text-[0.95rem] [@media(max-height:820px)]:gap-y-2 [@media(max-height:820px)]:text-[0.9rem] [@media(max-height:760px)]:text-[0.85rem]">
-            <div className="flex items-start gap-2 text-white/90">
-              <svg className="w-5 h-5 text-[var(--brand-accent)] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span>работаем с B2B и производством по всей России</span>
-            </div>
-            <div className="flex items-start gap-2 text-white/90">
-              <svg className="w-5 h-5 text-[var(--brand-accent)] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span>разрабатываем и настраиваем сайты, SEO, Яндекс.Директ</span>
-            </div>
-            <div className="flex items-start gap-2 text-white/90">
-              <svg className="w-5 h-5 text-[var(--brand-accent)] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span>понимаем длинный цикл сделки и сложный продукт</span>
-            </div>
-            <div className="flex items-start gap-2 text-white/90">
-              <svg className="w-5 h-5 text-[var(--brand-accent)] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span>фокусируемся на заявках и запросах КП</span>
-            </div>
-          </div>
 
           {/* CTA Buttons */}
           <div className="flex items-center justify-center gap-4 pt-4 sm:flex-row lg:justify-start max-[1080px]:gap-3 max-[1080px]:pt-2 [@media(max-height:820px)]:gap-3 [@media(max-height:820px)]:pt-1 [@media(max-height:760px)]:gap-2.5">
             <button
-              onClick={() => scrollToSection("contact")}
+              onClick={onOpenLeadForm}
               className="relative group w-full sm:w-auto"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
@@ -173,10 +203,10 @@ export function Hero({ onMenuToggle }: HeroProps) {
               </div>
             </button>
             <button
-              onClick={() => scrollToSection("services")}
+              onClick={() => scrollToSection("cases")}
               className="w-full rounded-full border-2 border-white/30 px-8 py-4 text-sm font-semibold text-white transition-all hover:border-white/50 hover:bg-white/5 sm:w-auto md:text-base max-[1080px]:px-7 max-[1080px]:py-3.5 [@media(max-height:820px)]:px-6 [@media(max-height:820px)]:py-3 [@media(max-height:820px)]:text-[0.8rem]"
             >
-              Посмотреть услуги
+              Посмотреть кейсы
             </button>
           </div>
           </div>
@@ -227,7 +257,7 @@ export function Hero({ onMenuToggle }: HeroProps) {
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 md:grid-cols-4 md:gap-8 max-[1080px]:gap-5 [@media(max-height:820px)]:gap-3">
           <div className="text-center">
             <div className="mb-2 text-3xl font-light text-white md:text-5xl max-[1080px]:text-[2.5rem] [@media(max-height:820px)]:mb-1 [@media(max-height:820px)]:text-[2rem]">14</div>
-            <div className="text-sm md:text-base text-white/70">Лет на рынке *Если заметили - скидка 5%*</div>
+            <div className="text-sm md:text-base text-white/70">Лет в сфере</div>
           </div>
           <div className="text-center">
             <div className="mb-2 text-3xl font-light text-white md:text-5xl max-[1080px]:text-[2.5rem] [@media(max-height:820px)]:mb-1 [@media(max-height:820px)]:text-[2rem]">250+</div>

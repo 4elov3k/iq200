@@ -3,9 +3,10 @@ const logoSrc = "/iq200/logo.webp";
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenLeadForm: () => void;
 }
 
-export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+export function MobileMenu({ isOpen, onClose, onOpenLeadForm }: MobileMenuProps) {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
@@ -92,7 +93,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           </div>
 
           <button
-            onClick={() => scrollToSection("contact")}
+            onClick={onOpenLeadForm}
             className="relative group w-full"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />

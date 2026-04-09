@@ -10,10 +10,12 @@ import { Reviews } from "./components/Reviews";
 import { FAQ } from "./components/FAQ";
 import { FinalCTA } from "./components/FinalCTA";
 import { Footer } from "./components/Footer";
+import { LeadPopup } from "./components/LeadPopup";
 import { MobileMenu } from "./components/MobileMenu";
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [leadPopupOpen, setLeadPopupOpen] = useState(false);
 
   return (
     <div className="relative bg-[var(--brand-bg)] min-h-screen w-full overflow-x-hidden">
@@ -26,21 +28,29 @@ export default function App() {
 
       {/* Content */}
       <div className="relative z-10">
-        <Hero onMenuToggle={() => setMenuOpen(true)} />
+        <Hero onMenuToggle={() => setMenuOpen(true)} onOpenLeadForm={() => setLeadPopupOpen(true)} />
         <TargetAudience />
-        <Problems />
-        <Services />
+        <Problems onOpenLeadForm={() => setLeadPopupOpen(true)} />
+        <Services onOpenLeadForm={() => setLeadPopupOpen(true)} />
         <Cases />
         <Process />
-        <AuditBenefits />
+        <AuditBenefits onOpenLeadForm={() => setLeadPopupOpen(true)} />
         <Reviews />
         <FAQ />
-        <FinalCTA />
+        <FinalCTA onOpenLeadForm={() => setLeadPopupOpen(true)} />
         <Footer />
       </div>
 
       {/* Mobile Menu */}
-      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MobileMenu
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        onOpenLeadForm={() => {
+          setMenuOpen(false);
+          setLeadPopupOpen(true);
+        }}
+      />
+      <LeadPopup open={leadPopupOpen} onOpenChange={setLeadPopupOpen} />
     </div>
   );
 }
