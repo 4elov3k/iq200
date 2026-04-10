@@ -104,11 +104,23 @@ app.post("/api/lead", async (req, res) => {
   return res.status(200).json({ ok: true });
 });
 
-app.get("*", (req, res) => {
-  if (req.path === "/privacy" || req.path === "/") {
-    return res.sendFile(path.join(distPath, "index.html"));
-  }
+app.get(/^\/assets\/.+/, (req, res) => {
+  res.sendFile(path.join(distPath, req.path), (error) => {
+    if (error) {
+      res.status(404).end();
+    }
+  });
+});
 
+app.get(/\.(js|css|map|png|jpg|jpeg|webp|svg|ico|woff2?)$/, (req, res) => {
+  res.sendFile(path.join(distPath, req.path), (error) => {
+    if (error) {
+      res.status(404).end();
+    }
+  });
+});
+
+app.get("*", (req, res) => {
   return res.sendFile(path.join(distPath, "index.html"));
 });
 
