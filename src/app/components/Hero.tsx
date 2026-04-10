@@ -66,11 +66,8 @@ export function Hero({ onMenuToggle, onOpenLeadForm }: HeroProps) {
               />
             </div>
             <div className="min-w-0">
-              <div className="text-base font-semibold leading-none text-white md:text-[1.75rem]">
-                IQ 200
-              </div>
-              <div className="mt-1 hidden text-[11px] uppercase tracking-[0.18em] text-white/65 md:block">
-                Digital-агентство полного цикла
+              <div className="text-[11px] uppercase tracking-[0.18em] text-white/65 md:text-[13px]">
+                DIGITAL - Агенство полного цикла
               </div>
             </div>
           </div>
