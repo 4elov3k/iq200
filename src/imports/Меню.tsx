@@ -1134,7 +1134,7 @@ function Group25() {
         <p className="leading-[normal]">Телефон</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Montserrat:Medium',sans-serif] font-medium h-[19px] justify-center left-[19px] text-[20px] top-[4657.5px] w-[262px]">
-        <p className="leading-[normal]">+7 (909) 089 18 89</p>
+        <p className="leading-[normal]">+7 (987) 751-05-56</p>
       </div>
     </div>
   );
@@ -1300,7 +1300,7 @@ function Group27() {
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Gilroy:SemiBold',sans-serif] justify-center leading-[0] left-[130.5px] not-italic text-[16px] text-center text-white top-[5596.5px] whitespace-nowrap">
         <p className="leading-[normal]">Подпишись на наши соцсети</p>
       </div>
-      <p className="absolute font-['Montserrat:SemiBold',sans-serif] font-semibold leading-[normal] left-[20px] text-[20px] text-white top-[5452px] whitespace-nowrap">+7 (909) 089 18 89</p>
+      <p className="absolute font-['Montserrat:SemiBold',sans-serif] font-semibold leading-[normal] left-[20px] text-[20px] text-white top-[5452px] whitespace-nowrap">+7 (987) 751-05-56</p>
       <p className="absolute font-['Montserrat:SemiBold',sans-serif] font-semibold h-[16px] leading-[normal] left-[20px] text-[#b7abe0] text-[14px] top-[5485px] w-[181px]">С 8:00 ДО 20:00 МСК</p>
       <div className="absolute h-[41px] left-[20px] rounded-[5px] top-[5521px] w-[201px]" style={{ backgroundImage: "linear-gradient(108.443deg, rgb(246, 27, 44) 1.3752%, rgb(237, 27, 141) 45.839%, rgb(255, 112, 39) 100.94%)" }} />
       <div className="absolute border border-[#f61b2c] border-solid left-[20px] rounded-[60px] size-[40px] top-[5621px]" />
@@ -1410,7 +1410,7 @@ function Group30() {
         </p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Inter:Extra_Bold',sans-serif] font-extrabold h-[14px] justify-center left-[160px] text-[13px] text-white top-[28px] w-[146px]">
-        <p className="leading-[30px]">+7 (909) 089 18 89</p>
+        <p className="leading-[30px]">+7 (987) 751-05-56</p>
       </div>
     </div>
   );
@@ -1551,7 +1551,7 @@ function Group2() {
         </p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Inter:Extra_Bold',sans-serif] font-extrabold h-[23px] justify-center left-[77px] text-[18px] text-white top-[547.5px] w-[173px]">
-        <p className="leading-[30px]">+7 (909) 089 18 89</p>
+        <p className="leading-[30px]">+7 (987) 751-05-56</p>
       </div>
     </div>
   );

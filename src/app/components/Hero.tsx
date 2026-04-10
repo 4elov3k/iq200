@@ -11,7 +11,7 @@ interface HeroProps {
 const logoSrc = "/iq200/logo.webp";
 const heroBgSrc = "/iq200/bg-02-scaled.webp";
 const heroBannerSrc = "/img.webp";
-const telegramHref = "https://t.me/iq200ru";
+const telegramHref = "https://t.me/MylenkovaLV";
 const maxHref = "https://max.ru/";
 
 export function Hero({ onMenuToggle, onOpenLeadForm }: HeroProps) {
@@ -95,7 +95,7 @@ export function Hero({ onMenuToggle, onOpenLeadForm }: HeroProps) {
 
           <div className="hidden items-center gap-3 lg:flex xl:justify-self-end">
             <a
-              href="tel:+79090891889"
+              href="tel:+79877510556"
               className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-white transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)]"
               aria-label="Позвонить"
             >
@@ -104,7 +104,7 @@ export function Hero({ onMenuToggle, onOpenLeadForm }: HeroProps) {
               </span>
               <span className="hidden text-left xl:block">
                 <span className="block text-[0.98rem] font-semibold leading-tight text-white">
-                  +7 (909) 089 18 89
+                  +7 (987) 751-05-56
                 </span>
                 <span className="mt-0.5 block text-[11px] leading-tight text-white/55">
                   Пн-Пт, 8:00-20:00
@@ -141,7 +141,7 @@ export function Hero({ onMenuToggle, onOpenLeadForm }: HeroProps) {
 
           <div className="flex items-center gap-2 lg:hidden">
             <a
-              href="tel:+79090891889"
+              href="tel:+79877510556"
               className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition hover:border-[var(--brand-accent)]"
               aria-label="Позвонить"
             >

@@ -164,7 +164,7 @@ function Group2() {
         </p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Inter:Extra_Bold',sans-serif] font-extrabold h-[23px] justify-center left-[1368px] text-[18px] text-white top-[58.5px] w-[173px]">
-        <p className="leading-[30px]">+7 (909) 089 18 89</p>
+        <p className="leading-[30px]">+7 (987) 751-05-56</p>
       </div>
     </div>
   );
@@ -2155,7 +2155,7 @@ function Next() {
         <p className="leading-[normal]">Подпишись на наши соцсети</p>
       </div>
       <Group43 />
-      <p className="absolute font-['Montserrat:SemiBold',sans-serif] font-semibold leading-[normal] left-[1340px] text-[20px] text-white top-[5367px] whitespace-nowrap">+7 (909) 089 18 89</p>
+      <p className="absolute font-['Montserrat:SemiBold',sans-serif] font-semibold leading-[normal] left-[1340px] text-[20px] text-white top-[5367px] whitespace-nowrap">+7 (987) 751-05-56</p>
       <p className="absolute font-['Montserrat:SemiBold',sans-serif] font-semibold h-[16px] leading-[normal] left-[1340px] text-[#b7abe0] text-[14px] top-[5400px] w-[181px]">С 8:00 ДО 20:00 МСК</p>
       <div className="absolute h-[41px] left-[1340px] rounded-[60px] top-[5436px] w-[201px]" style={{ backgroundImage: "linear-gradient(108.443deg, rgb(246, 27, 44) 1.3752%, rgb(237, 27, 141) 45.839%, rgb(255, 112, 39) 100.94%)" }} />
       <div className="absolute border border-[#f61b2c] border-solid left-[1340px] rounded-[60px] size-[40px] top-[5536px]" />
@@ -2221,7 +2221,7 @@ function Group62() {
         <p className="leading-[normal]">дом 34 стр. 4, офис 10 А.</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Montserrat:Medium',sans-serif] font-medium h-[19px] justify-center left-[366px] text-[#0f0f34] text-[22px] top-[6103.5px] w-[262px]">
-        <p className="leading-[normal]">+7 (909) 089 18 89</p>
+        <p className="leading-[normal]">+7 (987) 751-05-56</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Montserrat:Light',sans-serif] font-light h-[25px] justify-center left-[366px] text-[#0f0f34] text-[16px] top-[6198.5px] w-[122px]">
         <p className="leading-[normal]">E-mail</p>

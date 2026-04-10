@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
-
-const phonePattern = "^\\+?[0-9\\s()\\-]{10,20}$";
+import { submitLead } from "../lib/lead";
+import { formatPhoneInput, isValidRussianMobilePhone, phonePattern, phoneTitle } from "../lib/phone";
 
 interface AuditBenefitsProps {
   onOpenLeadForm: () => void;
@@ -12,6 +12,10 @@ export function AuditBenefits({ onOpenLeadForm }: AuditBenefitsProps) {
     name: "",
     phone: "",
   });
+  const [isPolicyAccepted, setIsPolicyAccepted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState("");
 
   const benefits = [
     {
@@ -36,10 +40,32 @@ export function AuditBenefits({ onOpenLeadForm }: AuditBenefitsProps) {
     },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Спасибо! Мы подготовим первичный аудит и свяжемся с вами.");
-    setFormData({ name: "", phone: "" });
+    setSubmitError("");
+    setSubmitSuccess("");
+
+    if (!isValidRussianMobilePhone(formData.phone)) {
+      setSubmitError(phoneTitle);
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await submitLead({
+        ...formData,
+        source: "audit-benefits",
+      });
+      setSubmitSuccess("Заявка отправлена. Мы подготовим первичный аудит и свяжемся с вами.");
+      setFormData({ name: "", phone: "" });
+      setIsPolicyAccepted(false);
+    } catch (error) {
+      console.error(error);
+      setSubmitError("Не удалось отправить заявку. Попробуйте ещё раз или откройте форму звонка.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -102,6 +128,7 @@ export function AuditBenefits({ onOpenLeadForm }: AuditBenefitsProps) {
                     id="audit-name"
                     type="text"
                     required
+                    disabled={isSubmitting}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full rounded-xl border border-[var(--brand-border)] bg-[var(--brand-surface-strong)] px-4 py-3 text-white placeholder-white/35 focus:border-[var(--brand-accent)] focus:outline-none"
@@ -118,23 +145,54 @@ export function AuditBenefits({ onOpenLeadForm }: AuditBenefitsProps) {
                     required
                     inputMode="tel"
                     pattern={phonePattern}
-                    title="Введите корректный номер телефона"
+                    title={phoneTitle}
+                    disabled={isSubmitting}
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, phone: formatPhoneInput(e.target.value) })}
                     className="w-full rounded-xl border border-[var(--brand-border)] bg-[var(--brand-surface-strong)] px-4 py-3 text-white placeholder-white/35 focus:border-[var(--brand-accent)] focus:outline-none"
                     placeholder="+7 (999) 123-45-67"
                   />
                 </div>
               </div>
 
+              {submitError ? (
+                <p className="mt-4 rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+                  {submitError}
+                </p>
+              ) : null}
+
+              {submitSuccess ? (
+                <p className="mt-4 rounded-2xl border border-[var(--brand-accent)]/30 bg-[color:rgba(151,195,44,0.12)] px-4 py-3 text-sm text-white">
+                  {submitSuccess}
+                </p>
+              ) : null}
+
+              <label className="mt-4 flex items-start gap-3 rounded-[1.15rem] border border-white/10 bg-[rgba(255,255,255,0.03)] px-4 py-3 text-sm leading-6 text-white/72">
+                <input
+                  type="checkbox"
+                  required
+                  checked={isPolicyAccepted}
+                  disabled={isSubmitting}
+                  onChange={(e) => setIsPolicyAccepted(e.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border border-white/25 bg-transparent accent-[var(--brand-accent)]"
+                />
+                <span>
+                  Я соглашаюсь с{" "}
+                  <a href="/privacy" className="text-white underline decoration-white/30 underline-offset-4 transition-colors hover:text-[var(--brand-accent)]">
+                    политикой конфиденциальности
+                  </a>{" "}
+                  и обработкой персональных данных
+                </span>
+              </label>
+
               <button
-                type="button"
-                onClick={onOpenLeadForm}
-                className="relative mt-6 block w-full group"
+                type="submit"
+                disabled={isSubmitting}
+                className="relative mt-6 block w-full group disabled:pointer-events-none disabled:opacity-80"
               >
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] blur-lg opacity-45 transition-opacity group-hover:opacity-75" />
                 <div className="relative rounded-full bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] px-6 py-4 text-center text-sm font-bold uppercase tracking-wide text-[var(--brand-bg)]">
-                  Получить аудит бесплатно
+                  {isSubmitting ? "Отправляем..." : "Получить аудит бесплатно"}
                 </div>
               </button>
             </form>

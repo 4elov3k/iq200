@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import {
   Dialog,
@@ -17,8 +18,40 @@ const reviews = [
   { title: "Нурсиб", image: "/iq200/nursib-scaled.jpg" },
 ];
 
+function isPdfAsset(src: string) {
+  return src.toLowerCase().endsWith(".pdf");
+}
+
 export function Reviews() {
   const [selectedReview, setSelectedReview] = useState<(typeof reviews)[number] | null>(null);
+  const selectedIndex = useMemo(
+    () => (selectedReview ? reviews.findIndex((review) => review.title === selectedReview.title) : -1),
+    [selectedReview],
+  );
+
+  const openReviewByIndex = (index: number) => {
+    const normalizedIndex = (index + reviews.length) % reviews.length;
+    setSelectedReview(reviews[normalizedIndex]);
+  };
+
+  useEffect(() => {
+    if (!selectedReview) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") {
+        openReviewByIndex(selectedIndex - 1);
+      }
+
+      if (event.key === "ArrowRight") {
+        openReviewByIndex(selectedIndex + 1);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedIndex, selectedReview]);
 
   return (
     <>
@@ -49,11 +82,17 @@ export function Reviews() {
                 className="group overflow-hidden rounded-2xl border border-[color:rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.03))] text-left transition duration-300 hover:-translate-y-1 hover:border-[var(--brand-accent)] hover:shadow-[0_24px_60px_rgba(0,0,0,0.32)]"
               >
                 <div className="aspect-[4/5] overflow-hidden bg-white p-2">
-                  <img
-                    src={review.image}
-                    alt={`Благодарственное письмо от компании ${review.title}`}
-                    className="h-full w-full object-contain transition duration-500 group-hover:scale-[1.03]"
-                  />
+                  {isPdfAsset(review.image) ? (
+                    <div className="flex h-full w-full items-center justify-center rounded-xl border border-dashed border-neutral-300 bg-neutral-50 px-4 text-center text-sm font-medium text-neutral-600">
+                      PDF
+                    </div>
+                  ) : (
+                    <img
+                      src={review.image}
+                      alt={`Благодарственное письмо от компании ${review.title}`}
+                      className="h-full w-full object-contain transition duration-500 group-hover:scale-[1.03]"
+                    />
+                  )}
                 </div>
                 <div className="border-t border-[var(--brand-border)] px-4 py-3">
                   <h3 className="text-sm font-medium text-white md:text-base">
@@ -70,24 +109,58 @@ export function Reviews() {
       </section>
 
       <Dialog open={Boolean(selectedReview)} onOpenChange={(open) => !open && setSelectedReview(null)}>
-        <DialogContent className="max-h-[92vh] max-w-5xl overflow-hidden rounded-[2rem] border-white/10 bg-[linear-gradient(180deg,#20241d,#171717)] p-0 text-white shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
+        <DialogContent className="max-h-[92vh] max-w-5xl overflow-visible rounded-[2rem] border-white/10 bg-[linear-gradient(180deg,#20241d,#171717)] p-0 text-white shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
           {selectedReview && (
-            <div className="flex max-h-[92vh] flex-col">
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => openReviewByIndex(selectedIndex - 1)}
+                className="absolute left-0 top-1/2 z-50 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/12 bg-[rgba(23,23,23,0.78)] text-white backdrop-blur-sm transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)]"
+                aria-label="Предыдущее письмо"
+              >
+                <ChevronLeft className="h-5 w-5" strokeWidth={2.2} />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => openReviewByIndex(selectedIndex + 1)}
+                className="absolute right-0 top-1/2 z-50 flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/12 bg-[rgba(23,23,23,0.78)] text-white backdrop-blur-sm transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)]"
+                aria-label="Следующее письмо"
+              >
+                <ChevronRight className="h-5 w-5" strokeWidth={2.2} />
+              </button>
+
+              <div className="flex max-h-[92vh] flex-col overflow-hidden rounded-[2rem]">
               <DialogHeader className="border-b border-white/8 px-6 py-5 pr-20 text-left md:px-8 md:pr-24">
                 <DialogTitle className="text-2xl font-semibold text-white md:text-3xl">
                   Благодарственное письмо от {selectedReview.title}
                 </DialogTitle>
               </DialogHeader>
 
+              <div className="border-b border-white/8 px-4 py-3 text-center md:px-6">
+                <p className="text-xs uppercase tracking-[0.18em] text-white/48">
+                  {selectedIndex + 1} / {reviews.length}
+                </p>
+              </div>
+
               <div className="overflow-auto p-4 md:p-6">
                 <div className="overflow-hidden rounded-2xl bg-white p-3 shadow-[0_24px_80px_rgba(0,0,0,0.3)] md:p-4">
-                  <img
-                    src={selectedReview.image}
-                    alt={`Полноразмерное благодарственное письмо от компании ${selectedReview.title}`}
-                    className="h-auto max-h-[72vh] w-full object-contain"
-                  />
+                  {isPdfAsset(selectedReview.image) ? (
+                    <iframe
+                      src={selectedReview.image}
+                      title={`PDF благодарственного письма от компании ${selectedReview.title}`}
+                      className="h-[72vh] w-full rounded-xl border-0"
+                    />
+                  ) : (
+                    <img
+                      src={selectedReview.image}
+                      alt={`Полноразмерное благодарственное письмо от компании ${selectedReview.title}`}
+                      className="h-auto max-h-[72vh] w-full object-contain"
+                    />
+                  )}
                 </div>
               </div>
+            </div>
             </div>
           )}
         </DialogContent>

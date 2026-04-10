@@ -1,4 +1,4 @@
-const PHONE_PATTERN = /^\+?[0-9\s()\-]{10,20}$/;
+const PHONE_PATTERN = /^79\d{9}$/;
 
 function escapeHtml(value: string) {
   return value
@@ -10,6 +10,18 @@ function escapeHtml(value: string) {
 
 function normalizeValue(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function normalizePhoneDigits(value: string) {
+  let digits = value.replace(/\D/g, "");
+
+  if (digits.startsWith("8")) {
+    digits = `7${digits.slice(1)}`;
+  } else if (digits.startsWith("9")) {
+    digits = `7${digits}`;
+  }
+
+  return digits.slice(0, 11);
 }
 
 export default async function handler(req: any, res: any) {
@@ -29,17 +41,13 @@ export default async function handler(req: any, res: any) {
   const name = normalizeValue(req.body?.name);
   const company = normalizeValue(req.body?.company);
   const phone = normalizeValue(req.body?.phone);
-  const website = normalizeValue(req.body?.website);
-
-  if (website) {
-    return res.status(200).json({ ok: true });
-  }
+  const source = normalizeValue(req.body?.source);
 
   if (!name || !phone) {
     return res.status(400).json({ error: "Name and phone are required" });
   }
 
-  if (!PHONE_PATTERN.test(phone)) {
+  if (!PHONE_PATTERN.test(normalizePhoneDigits(phone))) {
     return res.status(400).json({ error: "Invalid phone number" });
   }
 
@@ -57,6 +65,7 @@ export default async function handler(req: any, res: any) {
     `<b>Имя:</b> ${escapeHtml(name)}`,
     `<b>Компания:</b> ${escapeHtml(company || "Не указана")}`,
     `<b>Телефон:</b> ${escapeHtml(phone)}`,
+    `<b>Форма:</b> ${escapeHtml(source || "Не указана")}`,
     `<b>Время:</b> ${escapeHtml(submittedAt)}`,
   ];
 

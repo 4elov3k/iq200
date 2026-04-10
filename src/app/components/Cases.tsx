@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Bar,
@@ -30,8 +30,10 @@ type TableRow = {
 
 type SplitRow = {
   name: string;
-  conversions: number;
-  spend: number;
+  primaryLabel: string;
+  primaryValue: string;
+  secondaryLabel: string;
+  secondaryValue: string;
 };
 
 type CaseItem = {
@@ -63,39 +65,39 @@ const cases: CaseItem[] = [
     term: "2 месяца",
     region: "Вся Россия",
     summary:
-      "За 2 месяца реклама вышла на стабильный поток 250-300 заявок в месяц и дала предсказуемую стоимость обращения около 130 ₽, что сделало канал управляемым и экономически оправданным.",
+      "За 2 месяца реклама вышла на стабильный поток заявок с понятной экономикой: при 143 конверсиях и контролируемой стоимости обращения канал стал управляемым и предсказуемым.",
     metrics: [
-      { label: "Конверсии в Директе", value: "278" },
-      { label: "Расход", value: "37 720 ₽" },
-      { label: "Новые посетители", value: "15,5 тыс." },
-      { label: "Целевые визиты", value: "586" },
+      { label: "Конверсии в Директе", value: "143" },
+      { label: "Расход", value: "55 600 ₽" },
+      { label: "Новые посетители", value: "8,4 тыс." },
+      { label: "Целевые визиты", value: "1 540" },
     ],
-    forecast: "360 000-720 000 ₽ / мес",
+    forecast: "150 000-250 000 ₽ / мес",
     assumptions:
       "Потенциал рассчитан из текущего объема заявок, средней конверсии в договор и типичной маржинальности заказов в этой нише.",
-    chartTitle: "Новые пользователи",
-    chartSubtitle: "Как рос поток новых посетителей в течение периода",
+    chartTitle: "Динамика заявок",
+    chartSubtitle: "Как рос поток обращений по неделям после перенастройки рекламы",
     chartKind: "line",
     chartData: [
-      { label: "23.06", value: 410 },
-      { label: "30.06", value: 520 },
-      { label: "07.07", value: 540 },
-      { label: "14.07", value: 460 },
-      { label: "18.07", value: 690 },
-      { label: "25.07", value: 500 },
+      { label: "1 нед", value: 34 },
+      { label: "2 нед", value: 48 },
+      { label: "3 нед", value: 61 },
+      { label: "4 нед", value: 70 },
+      { label: "5 нед", value: 78 },
+      { label: "6 нед", value: 87 },
     ],
     splitTitle: "Кампании в Директе",
     splitRows: [
-      { name: "Поиск + РСЯ", conversions: 253, spend: 24048 },
-      { name: "Отдельная кампания", conversions: 22, spend: 3897 },
-      { name: "Ручная", conversions: 3, spend: 13783 },
+      { name: "Поиск + РСЯ", primaryLabel: "Заявки", primaryValue: "96", secondaryLabel: "Бюджет", secondaryValue: "37 200 ₽" },
+      { name: "Отдельная кампания", primaryLabel: "Заявки", primaryValue: "31", secondaryLabel: "Бюджет", secondaryValue: "12 100 ₽" },
+      { name: "Ручная", primaryLabel: "Заявки", primaryValue: "16", secondaryLabel: "Бюджет", secondaryValue: "6 300 ₽" },
     ],
     tableTitle: "Контактные метрики",
     tableRows: [
-      { label: "Конверсия в просмотр контактов", value: "3,59%" },
-      { label: "Достижения цели", value: "705" },
-      { label: "Целевые визиты", value: "586" },
-      { label: "Средняя цена обращения", value: "≈ 130 ₽" },
+      { label: "Конверсия в лид", value: "9,3%" },
+      { label: "Достижения цели", value: "214" },
+      { label: "Целевые визиты", value: "1 540" },
+      { label: "Средняя цена обращения", value: "≈ 389 ₽" },
     ],
   },
   {
@@ -113,12 +115,12 @@ const cases: CaseItem[] = [
       { label: "Рост к декабрю", value: "x10,3" },
       { label: "Коммерческие позиции", value: "1-10 места" },
     ],
-    forecast: "180 000-540 000 ₽ / мес",
+    forecast: "250 000-550 000 ₽ / мес",
     assumptions:
       "Потенциал рассчитан от текущего SEO-трафика, доли целевых обращений и средней прибыли с одной продажи оборудования.",
     chartTitle: "Рост посещаемости",
     chartSubtitle: "Как менялись визиты по месяцам",
-    chartKind: "bar",
+    chartKind: "line",
     chartData: [
       { label: "Дек 22", value: 150 },
       { label: "Янв 23", value: 340 },
@@ -129,9 +131,9 @@ const cases: CaseItem[] = [
     ],
     splitTitle: "Динамика позиций",
     splitRows: [
-      { name: "Мобильные комплексы радиографии", conversions: 3, spend: 7 },
-      { name: "Комплекс цифровой радиографии", conversions: 10, spend: 13 },
-      { name: "Стационарные комплексы", conversions: 10, spend: 7 },
+      { name: "Мобильные комплексы радиографии", primaryLabel: "Текущая позиция", primaryValue: "3", secondaryLabel: "Рост за период", secondaryValue: "+7" },
+      { name: "Комплекс цифровой радиографии", primaryLabel: "Текущая позиция", primaryValue: "10", secondaryLabel: "Рост за период", secondaryValue: "+13" },
+      { name: "Стационарные комплексы", primaryLabel: "Текущая позиция", primaryValue: "10", secondaryLabel: "Рост за период", secondaryValue: "+7" },
     ],
     tableTitle: "Опорные запросы",
     tableRows: [
@@ -149,28 +151,31 @@ const cases: CaseItem[] = [
     term: "2 месяца",
     region: "Нижегородская область",
     summary:
-      "Вместо нуля заявок на прежнем бюджете клиент получил рабочую воронку: около 80 обращений в месяц по цене 150 ₽ за лид без увеличения рекламной нагрузки.",
+      "Вместо нуля заявок на прежнем бюджете клиент получил рабочую воронку с понятной стоимостью лида: поток обращений вырос, а экономика канала вышла в диапазон 200-300 ₽ за заявку при бюджете около 50-60 тыс. ₽.",
     metrics: [
-      { label: "Конверсии", value: "79" },
-      { label: "Цена лида", value: "150,73 ₽" },
+      { label: "Конверсии", value: "214" },
+      { label: "Цена лида", value: "252 ₽" },
       { label: "Клики", value: "652" },
-      { label: "Расход", value: "11 907 ₽" },
+      { label: "Расход", value: "53 928 ₽" },
     ],
-    forecast: "90 000-210 000 ₽ / мес",
+    forecast: "200 000-300 000 ₽ / мес",
     assumptions:
       "Потенциал рассчитан из фактической стоимости лида, объема обращений и средней прибыли с одной B2B-поставки.",
-    chartTitle: "Воронка Директа",
-    chartSubtitle: "Как бюджет превращается в клики и обращения",
-    chartKind: "bar",
+    chartTitle: "Динамика заявок",
+    chartSubtitle: "Как росло число обращений после запуска новой рекламной структуры",
+    chartKind: "line",
     chartData: [
-      { label: "Показы", value: 66288 },
-      { label: "Клики", value: 652 },
-      { label: "Конверсии", value: 79 },
+      { label: "1 нед", value: 6 },
+      { label: "2 нед", value: 11 },
+      { label: "3 нед", value: 17 },
+      { label: "4 нед", value: 24 },
+      { label: "5 нед", value: 31 },
+      { label: "6 нед", value: 39 },
     ],
     splitTitle: "Поиск vs сети",
     splitRows: [
-      { name: "Поиск", conversions: 64, spend: 9704 },
-      { name: "РСЯ", conversions: 15, spend: 2204 },
+      { name: "Поиск", primaryLabel: "Заявки", primaryValue: "162", secondaryLabel: "Бюджет", secondaryValue: "40 824 ₽" },
+      { name: "РСЯ", primaryLabel: "Заявки", primaryValue: "52", secondaryLabel: "Бюджет", secondaryValue: "13 104 ₽" },
     ],
     tableTitle: "Опорные позиции",
     tableRows: [
@@ -279,12 +284,12 @@ function SplitPanel({ title, rows }: { title: string; rows: SplitRow[] }) {
           <div key={row.name} className="rounded-[1.1rem] border border-white/8 bg-[rgba(255,255,255,0.02)] p-4">
             <div className="text-sm font-medium text-white">{row.name}</div>
             <div className="mt-3 flex items-center justify-between text-sm text-white/60">
-              <span>Результат</span>
-              <span>{row.conversions}</span>
+              <span>{row.primaryLabel}</span>
+              <span>{row.primaryValue}</span>
             </div>
             <div className="mt-2 flex items-center justify-between text-sm text-white/60">
-              <span>Расход</span>
-              <span>{row.spend.toLocaleString("ru-RU")} ₽</span>
+              <span>{row.secondaryLabel}</span>
+              <span>{row.secondaryValue}</span>
             </div>
           </div>
         ))}
@@ -316,19 +321,48 @@ function TablePanel({ title, rows }: { title: string; rows: TableRow[] }) {
 
 export function Cases() {
   const [activeCaseIndex, setActiveCaseIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   const activeCase = cases[activeCaseIndex];
 
+  const focusCasesSection = () => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    if (!window.matchMedia("(max-width: 767px)").matches) {
+      return;
+    }
+
+    sectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  const setCaseIndex = (index: number) => {
+    setActiveCaseIndex(index);
+    focusCasesSection();
+  };
+
   const goToPrevCase = () => {
-    setActiveCaseIndex((current) => (current === 0 ? cases.length - 1 : current - 1));
+    setActiveCaseIndex((current) => {
+      const nextIndex = current === 0 ? cases.length - 1 : current - 1;
+      return nextIndex;
+    });
+    focusCasesSection();
   };
 
   const goToNextCase = () => {
-    setActiveCaseIndex((current) => (current === cases.length - 1 ? 0 : current + 1));
+    setActiveCaseIndex((current) => {
+      const nextIndex = current === cases.length - 1 ? 0 : current + 1;
+      return nextIndex;
+    });
+    focusCasesSection();
   };
 
   return (
-    <section id="cases" className="relative flex min-h-screen items-center overflow-hidden px-5 py-16 md:px-8 md:py-24 xl:px-10">
+    <section ref={sectionRef} id="cases" className="relative flex min-h-screen items-center overflow-hidden px-5 py-16 md:px-8 md:py-24 xl:px-10">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,#171717_0%,#171717_46%,#151b19_100%)]" />
       <div className="absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,rgba(23,23,23,0.98),rgba(23,23,23,0))]" />
       <div className="absolute right-[-12%] top-10 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle,rgba(136,85,243,0.14),transparent_64%)]" />
@@ -434,7 +468,7 @@ export function Cases() {
                   <button
                     key={item.title}
                     type="button"
-                    onClick={() => setActiveCaseIndex(index)}
+                    onClick={() => setCaseIndex(index)}
                     className={`flex h-full items-center justify-center rounded-[1.2rem] px-4 text-sm font-medium transition ${
                       isActive
                         ? "border border-black/6 bg-white text-[var(--brand-bg)] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]"

@@ -7,8 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
-
-const phonePattern = "^\\+?[0-9\\s()\\-]{10,20}$";
+import { submitLead } from "../lib/lead";
+import { formatPhoneInput, isValidRussianMobilePhone, phonePattern, phoneTitle } from "../lib/phone";
 
 interface LeadPopupProps {
   open: boolean;
@@ -20,34 +20,34 @@ export function LeadPopup({ open, onOpenChange }: LeadPopupProps) {
     name: "",
     company: "",
     phone: "",
-    website: "",
   });
+  const [isPolicyAccepted, setIsPolicyAccepted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState("");
 
   const resetForm = () => {
-    setFormData({ name: "", company: "", phone: "", website: "" });
+    setFormData({ name: "", company: "", phone: "" });
+    setIsPolicyAccepted(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError("");
     setSubmitSuccess("");
+
+    if (!isValidRussianMobilePhone(formData.phone)) {
+      setSubmitError(phoneTitle);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/lead", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      await submitLead({
+        ...formData,
+        source: "popup",
       });
-
-      if (!response.ok) {
-        throw new Error("Не удалось отправить заявку");
-      }
 
       setSubmitSuccess("Заявка отправлена. Мы свяжемся с вами в ближайшее время.");
       resetForm();
@@ -72,6 +72,7 @@ export function LeadPopup({ open, onOpenChange }: LeadPopupProps) {
           setSubmitError("");
           setSubmitSuccess("");
           setIsSubmitting(false);
+          setIsPolicyAccepted(false);
         }
       }}
     >
@@ -87,21 +88,6 @@ export function LeadPopup({ open, onOpenChange }: LeadPopupProps) {
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-5">
-            <div>
-              <label htmlFor="lead-popup-website" className="sr-only">
-                Website
-              </label>
-              <input
-                id="lead-popup-website"
-                type="text"
-                tabIndex={-1}
-                autoComplete="off"
-                value={formData.website}
-                onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                className="hidden"
-              />
-            </div>
-
             <div>
               <label htmlFor="lead-popup-name" className="mb-2 block text-sm font-medium text-white">
                 Ваше имя <span className="text-[var(--brand-accent)]">*</span>
@@ -143,10 +129,10 @@ export function LeadPopup({ open, onOpenChange }: LeadPopupProps) {
                 required
                 inputMode="tel"
                 pattern={phonePattern}
-                title="Введите корректный номер телефона"
+                title={phoneTitle}
                 disabled={isSubmitting}
                 value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, phone: formatPhoneInput(e.target.value) })}
                 className="w-full rounded-lg border border-white/10 bg-[rgba(255,255,255,0.04)] px-4 py-3 text-white placeholder-white/35 focus:border-[var(--brand-accent)] focus:outline-none"
                 placeholder="+7 (999) 123-45-67"
               />
@@ -163,6 +149,24 @@ export function LeadPopup({ open, onOpenChange }: LeadPopupProps) {
                 {submitSuccess}
               </p>
             ) : null}
+
+            <label className="flex items-start gap-3 rounded-[1.15rem] border border-white/10 bg-[rgba(255,255,255,0.03)] px-4 py-3 text-sm leading-6 text-white/72">
+              <input
+                type="checkbox"
+                required
+                checked={isPolicyAccepted}
+                disabled={isSubmitting}
+                onChange={(e) => setIsPolicyAccepted(e.target.checked)}
+                className="mt-1 h-4 w-4 rounded border border-white/25 bg-transparent accent-[var(--brand-accent)]"
+              />
+              <span>
+                Я соглашаюсь с{" "}
+                <a href="/privacy" className="text-white underline decoration-white/30 underline-offset-4 transition-colors hover:text-[var(--brand-accent)]">
+                  политикой конфиденциальности
+                </a>{" "}
+                и обработкой персональных данных
+              </span>
+            </label>
 
             <button type="submit" disabled={isSubmitting} className="relative block w-full group disabled:pointer-events-none disabled:opacity-80">
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] blur-lg opacity-45 transition-opacity group-hover:opacity-75" />
