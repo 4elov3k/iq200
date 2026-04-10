@@ -1,6 +1,16 @@
+import express from "express";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 const PHONE_PATTERN = /^79\d{9}$/;
 
-function escapeHtml(value: string) {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const app = express();
+const port = Number(process.env.PORT) || 3000;
+const distPath = path.join(__dirname, "dist");
+
+function escapeHtml(value) {
   return value
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -8,11 +18,11 @@ function escapeHtml(value: string) {
     .replace(/"/g, "&quot;");
 }
 
-function normalizeValue(value: unknown) {
+function normalizeValue(value) {
   return typeof value === "string" ? value.trim() : "";
 }
 
-function normalizePhoneDigits(value: string) {
+function normalizePhoneDigits(value) {
   let digits = value.replace(/\D/g, "");
 
   if (digits.startsWith("8")) {
@@ -24,12 +34,10 @@ function normalizePhoneDigits(value: string) {
   return digits.slice(0, 11);
 }
 
-export default async function handler(req: any, res: any) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+app.use(express.json());
+app.use(express.static(distPath));
 
+app.post("/api/lead", async (req, res) => {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   const threadId = process.env.TELEGRAM_THREAD_ID;
@@ -94,4 +102,16 @@ export default async function handler(req: any, res: any) {
   }
 
   return res.status(200).json({ ok: true });
-}
+});
+
+app.get("*", (req, res) => {
+  if (req.path === "/privacy" || req.path === "/") {
+    return res.sendFile(path.join(distPath, "index.html"));
+  }
+
+  return res.sendFile(path.join(distPath, "index.html"));
+});
+
+app.listen(port, () => {
+  console.log(`IQ200 app listening on port ${port}`);
+});

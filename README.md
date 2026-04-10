@@ -1,12 +1,19 @@
 # IQ 200 Landing
 
-Лендинг на `React + Vite` с серверлесс-обработчиком формы обратной связи для деплоя на Vercel.
+Лендинг на `React + Vite` с `Node + Express` сервером для деплоя как одного приложения, например на `Timeweb Cloud App`.
 
 ## Локальный запуск
 
 ```bash
 npm install
 npm run dev
+```
+
+Production-режим:
+
+```bash
+npm run build
+npm run start
 ```
 
 ## Форма заявок
@@ -23,12 +30,26 @@ TELEGRAM_THREAD_ID=
 
 `TELEGRAM_THREAD_ID` опционален и нужен только если бот пишет в topic внутри Telegram-группы.
 
-## Деплой на Vercel
+## Деплой на Timeweb Cloud App
 
-1. Импортируй репозиторий в Vercel.
-2. Build command: `npm run build`
-3. Output directory: `dist`
-4. Добавь env-переменные `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` и при необходимости `TELEGRAM_THREAD_ID`.
-5. После деплоя проверь отправку формы на `/api/lead`.
+Используй `Node.js app`, а не `Frontend app`.
 
-Конфиг Vercel уже добавлен в [vercel.json](/Users/dmitrykasatkin/dev/iq200ru/vercel.json).
+Параметры:
+
+```bash
+Build command: npm install && npm run build
+Start command: npm run start
+```
+
+Переменные окружения:
+
+```bash
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+TELEGRAM_THREAD_ID=
+```
+
+После деплоя приложение:
+- раздаёт фронт из `dist`
+- обрабатывает `POST /api/lead`
+- отправляет заявки в Telegram
