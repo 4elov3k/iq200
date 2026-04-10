@@ -10,7 +10,7 @@ interface HeroProps {
 
 const logoSrc = "/iq200/logo.webp";
 const heroBgSrc = "/iq200/bg-02-scaled.webp";
-const heroBannerSrc = "/iq200/02.png";
+const heroBannerSrc = "/img.webp";
 const telegramHref = "https://t.me/iq200ru";
 const maxHref = "https://max.ru/";
 
@@ -178,7 +178,7 @@ export function Hero({ onMenuToggle, onOpenLeadForm }: HeroProps) {
       {/* Hero Content */}
       <div className="relative z-10 flex-1 px-5 py-12 md:px-20 md:py-20 max-[1080px]:px-10 max-[1080px]:py-10 [@media(max-height:820px)]:py-7 [@media(max-height:760px)]:py-5">
         <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(420px,540px)] max-[1080px]:max-w-5xl max-[1080px]:gap-7 [@media(max-height:820px)]:gap-6 [@media(max-height:760px)]:gap-4">
-          <div className="space-y-6 text-center lg:text-left md:space-y-8 max-[1080px]:space-y-5 [@media(max-height:820px)]:space-y-4 [@media(max-height:760px)]:space-y-3">
+          <div className="relative z-20 space-y-6 text-center lg:text-left md:space-y-8 max-[1080px]:space-y-5 [@media(max-height:820px)]:space-y-4 [@media(max-height:760px)]:space-y-3">
           <h1 className="text-[2.55rem] font-bold leading-[1.04] text-white md:text-[4rem] lg:text-[4.75rem] max-[1080px]:text-[2.45rem] max-[1080px]:leading-[1.06] [@media(max-height:820px)]:text-[clamp(2.45rem,4.2vw,4.1rem)] [@media(max-height:820px)]:leading-[1.01] [@media(max-height:760px)]:text-[clamp(2.15rem,3.75vw,3.6rem)]">
             Привлекаем B2B-заявки для{" "}
             <span className="bg-gradient-to-r from-[var(--brand-gradient-start)] via-[var(--brand-gradient-mid)] to-[var(--brand-gradient-end)] bg-clip-text text-transparent">
@@ -199,7 +199,7 @@ export function Hero({ onMenuToggle, onOpenLeadForm }: HeroProps) {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
               <div className="relative rounded-full bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] px-8 py-4 text-sm font-bold uppercase tracking-wide text-[var(--brand-bg)] md:text-base max-[1080px]:px-7 max-[1080px]:py-3.5 [@media(max-height:820px)]:px-6 [@media(max-height:820px)]:py-3 [@media(max-height:820px)]:text-[0.8rem]">
-                Получить аудит сайта и рекламы
+                Получить аудит
               </div>
             </button>
             <button
@@ -211,7 +211,7 @@ export function Hero({ onMenuToggle, onOpenLeadForm }: HeroProps) {
           </div>
           </div>
 
-          <div className="relative hidden lg:block max-[1080px]:scale-[0.98] max-[1080px]:origin-center [@media(max-height:820px)]:scale-[0.86] [@media(max-height:760px)]:scale-[0.76]">
+          <div className="relative z-0 hidden lg:block max-[1080px]:scale-[0.98] max-[1080px]:origin-center [@media(max-height:820px)]:scale-[0.86] [@media(max-height:760px)]:scale-[0.76]">
             <div
               className="absolute -inset-8 rounded-[2.8rem] bg-gradient-to-br from-[color:rgba(136,85,243,0.28)] via-[color:rgba(185,143,227,0.18)] to-[color:rgba(151,195,44,0.16)] blur-3xl will-change-transform"
               style={{ transform: `translate3d(0, ${orbShift * -0.55}px, 0)` }}
@@ -265,7 +265,7 @@ export function Hero({ onMenuToggle, onOpenLeadForm }: HeroProps) {
           </div>
           <div className="text-center">
             <div className="mb-2 text-3xl font-light text-white md:text-5xl max-[1080px]:text-[2.5rem] [@media(max-height:820px)]:mb-1 [@media(max-height:820px)]:text-[2rem]">
-              <span>80</span>
+              <span>10</span>
               <span className="text-xl md:text-2xl font-medium"> млн.</span>
             </div>
             <div className="text-sm md:text-base text-white/70">Бюджет рекламы в год</div>
