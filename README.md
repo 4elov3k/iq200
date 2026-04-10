@@ -1,6 +1,6 @@
 # IQ 200 Landing
 
-Лендинг на `Next.js` с встроенным `api/lead` для отправки заявок в Telegram.
+Лендинг на `Next.js` с встроенным `api/lead` для отправки заявок в Element/Matrix.
 
 ## Локальный запуск
 
@@ -11,14 +11,14 @@ npm run dev
 
 ## Форма заявок
 
-Форма отправляет лиды в Telegram через встроенный `api/lead`.
+Форма отправляет лиды в Element/Matrix через встроенный `api/lead`.
 
 Переменные окружения:
 
 ```bash
-TELEGRAM_BOT_TOKEN=
-TELEGRAM_CHAT_ID=
-TELEGRAM_THREAD_ID=
+ELEMENT_HOMESERVER_URL=
+ELEMENT_ACCESS_TOKEN=
+ELEMENT_ROOM_ID=
 ```
 
 ## Деплой

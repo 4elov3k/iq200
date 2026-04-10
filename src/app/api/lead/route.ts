@@ -2,14 +2,6 @@ import { NextResponse } from "next/server";
 
 const PHONE_PATTERN = /^79\d{9}$/;
 
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
 function normalizeValue(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
 }
@@ -27,11 +19,11 @@ function normalizePhoneDigits(value: string) {
 }
 
 export async function POST(request: Request) {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  const threadId = process.env.TELEGRAM_THREAD_ID;
+  const homeserverUrl = normalizeValue(process.env.ELEMENT_HOMESERVER_URL);
+  const accessToken = normalizeValue(process.env.ELEMENT_ACCESS_TOKEN);
+  const roomId = normalizeValue(process.env.ELEMENT_ROOM_ID);
 
-  if (!botToken || !chatId) {
+  if (!homeserverUrl || !accessToken || !roomId) {
     return NextResponse.json({ error: "Lead form is not configured" }, { status: 500 });
   }
 
@@ -57,32 +49,36 @@ export async function POST(request: Request) {
   });
 
   const messageLines = [
-    "<b>Новая заявка с сайта iq200.ru</b>",
+    "Новая заявка с сайта iq200.ru",
     "",
-    `<b>Имя:</b> ${escapeHtml(name)}`,
-    `<b>Компания:</b> ${escapeHtml(company || "Не указана")}`,
-    `<b>Телефон:</b> ${escapeHtml(phone)}`,
-    `<b>Форма:</b> ${escapeHtml(source || "Не указана")}`,
-    `<b>Время:</b> ${escapeHtml(submittedAt)}`,
+    `Имя: ${name}`,
+    `Компания: ${company || "Не указана"}`,
+    `Телефон: ${phone}`,
+    `Форма: ${source || "Не указана"}`,
+    `Время: ${submittedAt}`,
   ];
 
-  const telegramResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-    method: "POST",
+  const txnId = crypto.randomUUID();
+  const sendUrl = new URL(
+    `/_matrix/client/v3/rooms/${encodeURIComponent(roomId)}/send/m.room.message/${txnId}`,
+    homeserverUrl,
+  );
+
+  const elementResponse = await fetch(sendUrl, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
-      chat_id: chatId,
-      message_thread_id: threadId ? Number(threadId) : undefined,
-      parse_mode: "HTML",
-      text: messageLines.join("\n"),
-      disable_web_page_preview: true,
+      msgtype: "m.text",
+      body: messageLines.join("\n"),
     }),
   });
 
-  if (!telegramResponse.ok) {
-    const errorText = await telegramResponse.text();
-    console.error("Telegram send failed:", errorText);
+  if (!elementResponse.ok) {
+    const errorText = await elementResponse.text();
+    console.error("Element send failed:", errorText);
     return NextResponse.json({ error: "Failed to send message" }, { status: 502 });
   }
 
