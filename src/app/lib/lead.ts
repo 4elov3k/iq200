@@ -15,7 +15,18 @@ export async function submitLead(payload: LeadPayload) {
   });
 
   if (!response.ok) {
-    throw new Error("Не удалось отправить заявку");
+    let message = "Не удалось отправить заявку";
+
+    try {
+      const data = (await response.json()) as { error?: string };
+      if (data?.error) {
+        message = data.error;
+      }
+    } catch {
+      // Ignore JSON parse failures and keep the generic message.
+    }
+
+    throw new Error(message);
   }
 
   return response.json();
