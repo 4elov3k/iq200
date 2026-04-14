@@ -135,9 +135,6 @@ export function Footer() {
             <a href="/privacy" className="hover:text-white transition-colors">
               Политика конфиденциальности
             </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Договор оферты
-            </a>
           </div>
         </div>
       </div>
