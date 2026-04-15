@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import {
-  ArrowRight,
   BadgeAlert,
   ChartNoAxesCombined,
   ChevronDown,
@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 import { LeadPopup } from "../components/LeadPopup";
+import { Cases } from "../components/Cases";
 import { MaxIcon } from "../components/icons/MaxIcon";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
 
@@ -30,10 +31,13 @@ const promoTheme = {
   "--promo-text": "rgba(61,45,26,0.8)",
   "--promo-title": "#2f2215",
   "--promo-muted": "rgba(95,71,43,0.55)",
-  "--promo-accent": "#b78946",
-  "--promo-accent-strong": "#8e632e",
+  "--promo-accent": "#97c32c",
+  "--promo-accent-strong": "#63811a",
   "--promo-shadow": "0 28px 100px rgba(98,74,43,0.12)",
 } as React.CSSProperties;
+
+const promoLogoSrc = "/iq200/logo.webp";
+const promoMarketerHeroSrc = "/iq200/promo-marketer-hero.png";
 
 const problems = [
   {
@@ -89,27 +93,6 @@ const services = [
   {
     title: "Выстраиваем целостную digital-систему",
     text: "Связываем сайт, SEO, рекламу и обработку заявок в одну рабочую модель без хаотичных действий.",
-  },
-];
-
-const cases = [
-  {
-    title: "Литье пластмасс на заказ",
-    channel: "Яндекс.Директ",
-    summary: "Перенастроили рекламу под реальные запросы и собрали стабильный канал входящих обращений без раздувания бюджета.",
-    result: "2 500 000 – 3 000 000",
-  },
-  {
-    title: "Производство рентген приборов",
-    channel: "SEO",
-    summary: "Вывели коммерческие запросы в рост и усилили органический трафик по приоритетным направлениям продаж.",
-    result: "12 000 000 – 15 000 000",
-  },
-  {
-    title: "Оптовая поставка кабеля",
-    channel: "Яндекс.Директ",
-    summary: "Собрали рабочую рекламную воронку вместо кампаний без заявок и добились предсказуемой стоимости обращения.",
-    result: "1 500 000 – 2 000 000",
   },
 ];
 
@@ -275,53 +258,62 @@ function PromoHeader({
   return (
     <header className="sticky top-0 z-30 px-5 pt-5 md:px-8 lg:px-12">
       <div
-        className="mx-auto flex max-w-7xl items-center justify-between rounded-full border bg-[rgba(255,255,255,0.72)] px-4 py-3 backdrop-blur-xl md:px-6"
+        className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-[1.75rem] border bg-[rgba(255,255,255,0.72)] px-4 py-3 shadow-[0_18px_60px_rgba(98,74,43,0.12)] backdrop-blur-xl md:px-6 xl:grid xl:grid-cols-[auto_1fr_auto] xl:gap-6"
         style={{ borderColor: "var(--promo-border)" }}
       >
-        <div className="flex items-center gap-3 rounded-full">
-          <div
-            className="flex h-11 w-11 items-center justify-center rounded-full border text-sm font-semibold tracking-[0.24em] text-[var(--promo-accent)]"
-            style={{ borderColor: "var(--promo-border)" }}
-          >
-            IQ
+        <div className="flex min-w-0 items-center gap-3 md:gap-4">
+          <div className="h-9 w-9 flex-shrink-0 overflow-hidden md:h-14 md:w-14">
+            <Image src={promoLogoSrc} alt="IQ 200" width={56} height={56} className="h-full w-full object-contain" />
           </div>
-          <div>
-            <div className="text-sm uppercase tracking-[0.28em] text-[var(--promo-accent)]">IQ 200</div>
-            <div className="text-xs text-[var(--promo-muted)]">Digital strategy boutique</div>
+          <div className="min-w-0">
+            <div className="text-[11px] uppercase tracking-[0.18em] text-[var(--promo-muted)] md:text-[13px]">
+              DIGITAL - Агенство полного цикла
+            </div>
           </div>
         </div>
 
-        <nav className="hidden items-center gap-6 text-sm text-[var(--promo-text)] lg:flex">
-          <button onClick={() => scrollToSection("problems")} className="transition hover:text-[var(--promo-accent-strong)]">Проблемы</button>
-          <button onClick={() => scrollToSection("services")} className="transition hover:text-[var(--promo-accent-strong)]">Подход</button>
-          <button onClick={() => scrollToSection("cases")} className="transition hover:text-[var(--promo-accent-strong)]">Кейсы</button>
-          <button onClick={() => scrollToSection("faq")} className="transition hover:text-[var(--promo-accent-strong)]">Вопросы</button>
+        <nav className="hidden items-center justify-center gap-6 text-sm font-medium text-[var(--promo-text)] xl:flex">
+          <button onClick={() => scrollToSection("problems")} className="transition-colors hover:text-[var(--promo-accent-strong)]">Проблемы</button>
+          <button onClick={() => scrollToSection("services")} className="transition-colors hover:text-[var(--promo-accent-strong)]">Подход</button>
+          <button onClick={() => scrollToSection("cases")} className="transition-colors hover:text-[var(--promo-accent-strong)]">Кейсы</button>
+          <button onClick={() => scrollToSection("faq")} className="transition-colors hover:text-[var(--promo-accent-strong)]">Вопросы</button>
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 lg:flex xl:justify-self-end">
           <a
             href="tel:+79877510556"
-            className="rounded-full border bg-[rgba(255,255,255,0.55)] px-4 py-2 text-sm text-[var(--promo-text)] transition hover:border-[var(--promo-border-strong)] hover:bg-white hover:text-[var(--promo-accent-strong)]"
+            className="flex items-center gap-3 rounded-full border bg-[rgba(255,255,255,0.62)] px-3 py-2 text-[var(--promo-title)] transition hover:border-[var(--promo-accent)] hover:text-[var(--promo-accent-strong)]"
             style={{ borderColor: "var(--promo-border)" }}
+            aria-label="Позвонить"
           >
-            +7 (987) 751-05-56
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[rgba(151,195,44,0.12)] text-[var(--promo-title)]">
+              <PhoneCall className="h-4 w-4" strokeWidth={1.9} />
+            </span>
+            <span className="hidden text-left xl:block">
+              <span className="block text-[0.98rem] font-semibold leading-tight text-[var(--promo-title)]">
+                +7 (987) 751-05-56
+              </span>
+              <span className="mt-0.5 block text-[11px] leading-tight text-[var(--promo-muted)]">
+                Пн-Пт, 8:00-20:00
+              </span>
+            </span>
           </a>
           <div className="flex items-center gap-2">
             <a
               href="https://t.me/MylenkovaLV"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-11 w-11 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.62)] text-[var(--promo-text)] transition hover:border-[var(--promo-border-strong)] hover:bg-white hover:text-[var(--promo-accent-strong)]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.62)] text-[var(--promo-title)] transition hover:border-[var(--promo-accent)] hover:text-[var(--promo-accent-strong)]"
               style={{ borderColor: "var(--promo-border)" }}
               aria-label="Telegram"
             >
               <Send className="h-4 w-4" strokeWidth={2} />
             </a>
             <a
-              href="https://max.ru/"
+              href="https://max.ru/u/f9LHodD0cOI2EiTS-n3EaE6xy4n1YnMwwxElSutbsqF435B0P6658RpTL5w"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-11 w-11 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.62)] text-[var(--promo-text)] transition hover:border-[var(--promo-border-strong)] hover:bg-white hover:text-[var(--promo-accent-strong)]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.62)] text-[var(--promo-title)] transition hover:border-[var(--promo-accent)] hover:text-[var(--promo-accent-strong)]"
               style={{ borderColor: "var(--promo-border)" }}
               aria-label="MAX"
             >
@@ -330,20 +322,48 @@ function PromoHeader({
           </div>
           <button
             onClick={onOpenLeadForm}
-            className="rounded-full px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:brightness-110"
-            style={{ backgroundColor: "var(--promo-accent)" }}
+            className="rounded-full border border-[var(--promo-accent)] bg-[rgba(151,195,44,0.08)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-[var(--promo-title)] transition hover:bg-[rgba(151,195,44,0.16)]"
           >
-            Обсудить задачу
+            Заказать звонок
+          </button>
+        </div>
+
+        <div className="flex items-center gap-2 lg:hidden">
+          <a
+            href="tel:+79877510556"
+            className="flex h-10 w-10 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.62)] text-[var(--promo-title)] transition hover:border-[var(--promo-accent)]"
+            style={{ borderColor: "var(--promo-border)" }}
+            aria-label="Позвонить"
+          >
+            <PhoneCall className="h-4 w-4" strokeWidth={1.9} />
+          </a>
+          <a
+            href="https://t.me/MylenkovaLV"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-10 w-10 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.62)] text-[var(--promo-title)] transition hover:border-[var(--promo-accent)]"
+            style={{ borderColor: "var(--promo-border)" }}
+            aria-label="Telegram"
+          >
+            <Send className="h-4 w-4" strokeWidth={2} />
+          </a>
+          <button
+            onClick={onMenuToggle}
+            className="flex h-10 w-10 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.62)] text-[var(--promo-title)] transition hover:border-[var(--promo-accent)]"
+            style={{ borderColor: "var(--promo-border)" }}
+            aria-label="Открыть меню"
+          >
+            <Menu className="h-4 w-4" strokeWidth={2} />
           </button>
         </div>
 
         <button
           onClick={onMenuToggle}
-          className="flex h-11 w-11 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.62)] text-[var(--promo-text)] transition hover:border-[var(--promo-border-strong)] hover:bg-white hover:text-[var(--promo-accent-strong)] lg:hidden"
+          className="hidden h-10 w-10 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.62)] text-[var(--promo-title)] transition hover:border-[var(--promo-accent)] xl:hidden"
           style={{ borderColor: "var(--promo-border)" }}
           aria-label="Открыть меню"
         >
-          <Menu className="h-5 w-5" />
+          <Menu className="h-4 w-4" strokeWidth={2} />
         </button>
       </div>
     </header>
@@ -369,24 +389,27 @@ function PromoMenu({
   }
 
   return (
-    <div className="fixed inset-0 z-40 bg-[rgba(73,57,35,0.16)] px-5 py-5 backdrop-blur-md lg:hidden">
-      <div
-        className="mx-auto max-w-xl rounded-[2rem] border bg-[linear-gradient(180deg,rgba(255,252,247,0.98),rgba(247,239,228,0.98))] p-6 shadow-[var(--promo-shadow)]"
-        style={{ borderColor: "var(--promo-border-strong)" }}
-      >
-        <div className="flex items-center justify-between">
-          <div className="text-sm uppercase tracking-[0.28em] text-[var(--promo-accent)]">Навигация</div>
+    <div className="fixed inset-0 z-40 lg:hidden">
+      <div className="absolute inset-0 bg-[rgba(73,57,35,0.16)] backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-y-0 right-0 w-full max-w-sm overflow-y-auto bg-[var(--promo-bg)] shadow-2xl">
+        <div className="flex items-center justify-between border-b p-5" style={{ borderColor: "var(--promo-border)" }}>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold tracking-[0.24em] text-[var(--promo-accent)]" style={{ borderColor: "var(--promo-border)" }}>IQ</div>
+            <div>
+              <div className="text-lg font-semibold text-[var(--promo-title)]">IQ 200</div>
+              <div className="text-xs uppercase text-[var(--promo-muted)]">Digital-агентство</div>
+            </div>
+          </div>
           <button
             onClick={onClose}
-            className="flex h-10 w-10 items-center justify-center rounded-full border bg-white/70 text-[var(--promo-text)] transition hover:border-[var(--promo-border-strong)] hover:bg-white hover:text-[var(--promo-accent-strong)]"
-            style={{ borderColor: "var(--promo-border)" }}
+            className="flex h-10 w-10 items-center justify-center text-[var(--promo-text)] transition-colors hover:text-[var(--promo-title)]"
             aria-label="Закрыть меню"
           >
-            <X className="h-4 w-4" />
+            <X className="h-6 w-6" />
           </button>
         </div>
 
-        <div className="mt-8 space-y-3">
+        <nav className="space-y-2 p-5">
           {[
             ["problems", "Проблемы"],
             ["services", "Подход"],
@@ -396,25 +419,39 @@ function PromoMenu({
             <button
               key={id}
               onClick={() => goTo(id)}
-              className="flex w-full items-center justify-between rounded-[1.2rem] border px-4 py-4 text-left text-[var(--promo-title)] transition hover:border-[var(--promo-border-strong)] hover:bg-white"
-              style={{ borderColor: "var(--promo-border)" }}
+              className="w-full rounded-lg px-4 py-3 text-left text-[var(--promo-title)] transition-colors hover:bg-[rgba(255,255,255,0.6)]"
             >
               {label}
-              <ArrowRight className="h-4 w-4 text-[var(--promo-accent)]" />
             </button>
           ))}
-        </div>
+        </nav>
 
-        <button
-          onClick={() => {
-            onClose();
-            onOpenLeadForm();
-          }}
-          className="mt-8 w-full rounded-full px-5 py-4 font-semibold text-white transition hover:-translate-y-0.5 hover:brightness-110"
-          style={{ backgroundColor: "var(--promo-accent)" }}
-        >
-          Оставить заявку
-        </button>
+        <div className="border-t p-5" style={{ borderColor: "var(--promo-border)" }}>
+          <div className="mb-6">
+            <div className="mb-2 text-xs uppercase tracking-wider text-[var(--promo-muted)]">Свяжитесь с нами</div>
+            <a href="tel:+79877510556" className="text-xl font-bold text-[var(--promo-title)] transition-colors hover:text-[var(--promo-accent-strong)]">+7 (987) 751-05-56</a>
+            <p className="mt-1 text-sm text-[var(--promo-text)]">Работаем с 8:00 до 20:00</p>
+          </div>
+
+          <button
+            onClick={() => {
+              onClose();
+              onOpenLeadForm();
+            }}
+            className="relative group w-full"
+          >
+            <div className="absolute inset-0 rounded-full bg-[var(--promo-accent)] blur-lg opacity-25 transition-opacity group-hover:opacity-40" />
+            <div className="relative rounded-full bg-[var(--promo-accent)] px-6 py-3 text-center text-sm font-bold uppercase text-white">
+              Заказать звонок
+            </div>
+          </button>
+
+          <div className="mt-6 flex justify-center gap-3">
+            <a href="tel:+79877510556" className="flex h-10 w-10 items-center justify-center rounded-full border bg-white text-[var(--promo-title)] transition hover:border-[var(--promo-accent)] hover:text-[var(--promo-accent-strong)]" style={{ borderColor: "var(--promo-border)" }} aria-label="Позвонить"><PhoneCall className="h-4 w-4" strokeWidth={1.9} /></a>
+            <a href="https://t.me/MylenkovaLV" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full border bg-white text-[var(--promo-title)] transition hover:border-[var(--promo-accent)] hover:text-[var(--promo-accent-strong)]" style={{ borderColor: "var(--promo-border)" }} aria-label="Telegram"><Send className="h-4 w-4" strokeWidth={2} /></a>
+            <a href="https://max.ru/u/f9LHodD0cOI2EiTS-n3EaE6xy4n1YnMwwxElSutbsqF435B0P6658RpTL5w" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full border bg-white text-[var(--promo-title)] transition hover:border-[var(--promo-accent)] hover:text-[var(--promo-accent-strong)]" style={{ borderColor: "var(--promo-border)" }} aria-label="MAX"><MaxIcon className="h-4 w-4" /></a>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -433,7 +470,7 @@ export default function PromoLanding() {
 
         <main>
           <section className="px-5 pb-16 pt-16 md:px-8 md:pb-24 md:pt-20 lg:px-12">
-            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-end">
+            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.9fr)] lg:items-start">
               <div className="max-w-4xl">
                 <div
                   className="inline-flex items-center gap-3 rounded-full border bg-[rgba(255,255,255,0.68)] px-4 py-2 text-xs uppercase tracking-[0.28em] text-[var(--promo-accent)]"
@@ -448,17 +485,26 @@ export default function PromoLanding() {
                 <p className="mt-8 max-w-3xl text-lg leading-8 text-[var(--promo-text)] md:text-xl">
                   Мы поможем вашему бизнесу получать стабильный поток целевых заявок с помощью эффективного SEO, рекламы и современных digital-стратегий.
                 </p>
-                <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                <div
+                  className="mt-8 max-w-xl rounded-[1.25rem] border bg-[rgba(255,255,255,0.68)] px-4 py-4 sm:px-5 sm:py-5"
+                  style={{ borderColor: "var(--promo-border)" }}
+                >
+                  <div className="text-[11px] uppercase tracking-[0.22em] text-[var(--promo-muted)] sm:text-sm">Фокус</div>
+                  <p className="mt-2 text-lg font-medium leading-snug text-[var(--promo-title)] sm:mt-3 sm:text-2xl">
+                    Заявки, доверие и внятная логика роста
+                  </p>
+                </div>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
                   <button
                     onClick={() => setLeadPopupOpen(true)}
-                    className="rounded-full px-7 py-4 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:brightness-110"
+                    className="w-full rounded-full px-7 py-4 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:brightness-110 sm:w-auto"
                     style={{ backgroundColor: "var(--promo-accent)" }}
                   >
                     Получить аудит
                   </button>
                   <a
                     href="#cases"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border bg-[rgba(255,255,255,0.56)] px-7 py-4 text-base text-[var(--promo-title)] transition hover:border-[var(--promo-border-strong)] hover:bg-white hover:text-[var(--promo-accent-strong)]"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full border bg-[rgba(255,255,255,0.56)] px-7 py-4 text-base text-[var(--promo-title)] transition hover:border-[var(--promo-border-strong)] hover:bg-white hover:text-[var(--promo-accent-strong)] sm:w-auto"
                     style={{ borderColor: "var(--promo-border)" }}
                   >
                     Посмотреть кейсы
@@ -468,29 +514,52 @@ export default function PromoLanding() {
               </div>
 
               <div
-                className="rounded-[2rem] border p-6 md:p-8"
+                className="relative overflow-hidden rounded-[1.6rem] border p-4 sm:p-6 lg:mt-[4.5rem] md:p-8"
                 style={{
                   borderColor: "var(--promo-border)",
                   background: "linear-gradient(180deg, rgba(255,255,255,0.92), rgba(252,247,240,0.86))",
                   boxShadow: "var(--promo-shadow)",
                 }}
               >
-                <div className="text-xs uppercase tracking-[0.28em] text-[var(--promo-accent)]">Премиальный подход</div>
-                <div className="mt-5 space-y-5">
-                  {[
-                    "Убираем хаос между сайтом, SEO и рекламой",
-                    "Опираемся на заявки и экономику, а не на пустые отчеты",
-                    "Собираем спокойную, убедительную digital-систему под ваш бизнес",
-                  ].map((item) => (
-                    <div key={item} className="flex items-start gap-3">
-                      <div className="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--promo-accent)]" />
-                      <p className="text-base leading-7 text-[var(--promo-text)]">{item}</p>
+                <div className="absolute right-[-3rem] top-[-2rem] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(183,137,70,0.18),transparent_68%)] blur-3xl md:h-56 md:w-56" />
+
+                <div className="relative flex flex-col gap-6">
+                  <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_280px] md:items-end md:gap-6">
+                    <div className="min-w-0 pt-1 md:pt-6">
+                      <div className="text-xs uppercase tracking-[0.28em] text-[var(--promo-accent)]">Премиальный подход</div>
+                      <p className="mt-3 max-w-md text-sm leading-6 text-[var(--promo-text)] sm:mt-4 sm:text-base sm:leading-7">
+                        Работаем как собранный digital-партнер: без хаоса, без перегрузки и без дешевой визуальной агрессии.
+                      </p>
                     </div>
-                  ))}
-                </div>
-                <div className="mt-8 rounded-[1.5rem] border bg-[rgba(255,255,255,0.58)] px-5 py-5" style={{ borderColor: "var(--promo-border)" }}>
-                  <div className="text-sm uppercase tracking-[0.22em] text-[var(--promo-muted)]">Фокус</div>
-                  <p className="mt-3 text-2xl font-medium text-[var(--promo-title)]">Заявки, доверие и внятная логика роста</p>
+
+                    <div className="pointer-events-none flex justify-center md:justify-end">
+                      <div className="relative h-[200px] w-[200px] overflow-hidden sm:h-[240px] sm:w-[240px] md:h-[320px] md:w-[280px]">
+                        <Image
+                          src={promoMarketerHeroSrc}
+                          alt="Маркетолог IQ 200"
+                          fill
+                          loading="lazy"
+                          sizes="(max-width: 639px) 200px, (max-width: 767px) 240px, 280px"
+                          className="object-cover object-top drop-shadow-[0_32px_72px_rgba(98,74,43,0.22)]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-[1.25rem] border bg-[rgba(255,255,255,0.52)] px-4 py-4 sm:rounded-[1.5rem] sm:px-5 sm:py-5" style={{ borderColor: "rgba(165,126,69,0.14)" }}>
+                    <div className="grid gap-4 sm:gap-5">
+                      {[
+                        "Убираем хаос между сайтом, SEO и рекламой",
+                        "Опираемся на заявки и экономику, а не на пустые отчеты",
+                        "Собираем спокойную, убедительную digital-систему под ваш бизнес",
+                      ].map((item) => (
+                        <div key={item} className="flex items-start gap-3">
+                          <div className="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--promo-accent)]" />
+                          <p className="text-sm leading-6 text-[var(--promo-text)] sm:text-base sm:leading-7">{item}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -558,48 +627,7 @@ export default function PromoLanding() {
             </div>
           </section>
 
-          <section id="cases" className="px-5 py-16 md:px-8 md:py-24 lg:px-12">
-            <div className="mx-auto max-w-7xl">
-              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-                <div>
-                  <div className="text-xs uppercase tracking-[0.28em] text-[var(--promo-accent)]">Кейсы</div>
-                  <h2 className="mt-5 text-4xl font-semibold text-[var(--promo-title)] md:text-6xl">
-                    Несколько ориентиров по результатам.
-                  </h2>
-                </div>
-                <p className="max-w-xl text-base leading-7 text-[var(--promo-text)]">
-                  Ниже не шумные презентации, а понятные кейсы, в которых виден деловой смысл работы.
-                </p>
-              </div>
-
-              <div className="mt-12 grid gap-5 lg:grid-cols-3">
-                {cases.map((item) => (
-                  <article
-                    key={item.title}
-                    className="flex h-full flex-col rounded-[2rem] border p-6 md:p-7"
-                    style={{
-                      borderColor: "var(--promo-border)",
-                      background: "linear-gradient(180deg, rgba(255,255,255,0.92), rgba(249,243,235,0.86))",
-                      boxShadow: "0 18px 48px rgba(98,74,43,0.06)",
-                    }}
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="rounded-full border px-3 py-1 text-xs uppercase tracking-[0.22em] text-[var(--promo-accent)]" style={{ borderColor: "var(--promo-border)" }}>
-                        {item.channel}
-                      </span>
-                      <span className="text-sm text-[var(--promo-muted)]">Потенциал прибыли</span>
-                    </div>
-                    <h3 className="mt-8 text-3xl font-medium leading-tight text-[var(--promo-title)]">{item.title}</h3>
-                    <p className="mt-5 flex-1 text-base leading-7 text-[var(--promo-text)]">{item.summary}</p>
-                    <div className="mt-8 border-t pt-6" style={{ borderColor: "var(--promo-border)" }}>
-                      <div className="text-sm uppercase tracking-[0.22em] text-[var(--promo-muted)]">Диапазон</div>
-                      <div className="mt-3 text-3xl font-medium text-[var(--promo-accent-strong)]">{item.result}</div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
+          <Cases />
 
           <section className="px-5 py-16 md:px-8 md:py-24 lg:px-12">
             <div
@@ -760,7 +788,7 @@ export default function PromoLanding() {
                     <Send className="h-4 w-4" strokeWidth={2} />
                   </a>
                   <a
-                    href="https://max.ru/"
+                    href="https://max.ru/u/f9LHodD0cOI2EiTS-n3EaE6xy4n1YnMwwxElSutbsqF435B0P6658RpTL5w"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-10 w-10 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.7)] text-[var(--promo-title)] transition hover:border-[var(--promo-border-strong)] hover:bg-white hover:text-[var(--promo-accent-strong)]"

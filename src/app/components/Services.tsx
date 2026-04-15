@@ -41,49 +41,41 @@ export function Services({ onOpenLeadForm }: ServicesProps) {
 
   return (
     <section id="services" className="relative overflow-hidden px-5 py-16 md:px-20 md:py-24">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,#1d211b_0%,#171717_22%,#171717_68%,#1b1f18_100%)]" />
-      <div className="absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(29,33,27,0.98),rgba(29,33,27,0))]" />
-      <div className="absolute left-[-12%] top-12 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(151,195,44,0.14),transparent_62%)]" />
-      <div className="absolute right-[-10%] top-16 h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(136,85,243,0.12),transparent_64%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(180deg,rgba(23,23,23,0),rgba(23,23,23,0.94))]" />
+      <div className="absolute inset-0 opacity-62 bg-[linear-gradient(180deg,#f3ebdf_0%,#f6f0e8_26%,#f8f2ea_68%,#fffdf8_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-36 opacity-72 bg-[linear-gradient(180deg,rgba(243,235,223,0.96),rgba(243,235,223,0))]" />
+      <div className="absolute left-[-12%] top-12 h-96 w-96 rounded-full opacity-70 bg-[radial-gradient(circle,rgba(183,137,70,0.1),transparent_62%)]" />
+      <div className="absolute right-[-10%] top-16 h-[28rem] w-[28rem] rounded-full opacity-70 bg-[radial-gradient(circle,rgba(255,255,255,0.46),transparent_64%)]" />
 
-      <div className="relative max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-4">
+      <div className="relative mx-auto max-w-[1600px]">
+        <h2 className="mb-4 text-center text-3xl font-bold text-[var(--brand-title)] md:text-4xl lg:text-5xl">
           Что мы делаем для{" "}
-          <span className="bg-gradient-to-r from-[var(--brand-gradient-start)] via-[var(--brand-gradient-mid)] to-[var(--brand-gradient-end)] bg-clip-text text-transparent">
+          <span className="text-[var(--brand-accent-hover)]">
             производственных B2B-компаний
           </span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
-            <div
-              key={index}
-              className="relative group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-[color:rgba(136,85,243,0.12)] via-[color:rgba(185,143,227,0.12)] to-[color:rgba(238,142,209,0.12)] rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative h-full flex flex-col rounded-2xl border border-[color:rgba(255,255,255,0.08)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] p-6 transition-all hover:border-[color:rgba(151,195,44,0.5)] md:p-8">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[var(--brand-accent)] to-[var(--brand-accent-soft)] flex items-center justify-center text-[var(--brand-bg)] mb-6 overflow-hidden p-2">
-                  <service.icon
-                    aria-hidden="true"
-                    className="h-8 w-8"
-                    strokeWidth={1.9}
-                  />
+            <div key={index} className="relative group">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[rgba(183,137,70,0.1)] via-[rgba(233,215,188,0.14)] to-[rgba(255,255,255,0.18)] blur-xl opacity-0 transition-opacity group-hover:opacity-100" />
+              <div
+                className="relative flex h-full flex-col rounded-2xl border p-6 transition-all hover:border-[rgba(183,137,70,0.36)] md:p-8"
+                style={{ borderColor: "var(--brand-border)", background: "linear-gradient(180deg,rgba(255,255,255,0.82),rgba(255,255,255,0.66))" }}
+              >
+                <div className="mb-6 flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[var(--brand-accent)] to-[var(--brand-accent-soft)] p-2 text-white">
+                  <service.icon aria-hidden="true" className="h-8 w-8" strokeWidth={1.9} />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
-                <p className="text-white/70 text-base leading-relaxed flex-1">{service.description}</p>
+                <h3 className="mb-3 text-xl font-semibold text-[var(--brand-title)]">{service.title}</h3>
+                <p className="flex-1 text-base leading-relaxed text-[var(--brand-text)]">{service.description}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="flex justify-center mt-12">
-          <button
-            onClick={onOpenLeadForm}
-            className="relative group"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
-            <div className="relative px-8 py-4 bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] rounded-full text-[var(--brand-bg)] font-bold text-sm md:text-base uppercase tracking-wide">
+        <div className="mt-12 flex justify-center">
+          <button onClick={onOpenLeadForm} className="relative group">
+            <div className="absolute inset-0 rounded-full bg-[var(--brand-accent)] blur-lg opacity-25 transition-opacity group-hover:opacity-40" />
+            <div className="relative rounded-full bg-[var(--brand-accent)] px-8 py-4 text-sm font-bold uppercase tracking-wide text-white md:text-base">
               Запросить разбор под нашу задачу
             </div>
           </button>

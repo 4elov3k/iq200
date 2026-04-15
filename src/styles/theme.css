@@ -39,18 +39,18 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --brand-bg: #171717;
-  --brand-surface: #222222;
-  --brand-surface-strong: #2c2d33;
-  --brand-border: #333333;
-  --brand-title: #f4f4f4;
-  --brand-text: #d9d9d9;
+  --brand-bg: #f6f0e8;
+  --brand-surface: rgba(255, 255, 255, 0.74);
+  --brand-surface-strong: #fffaf3;
+  --brand-border: rgba(165, 126, 69, 0.18);
+  --brand-title: #2f2215;
+  --brand-text: rgba(61, 45, 26, 0.8);
   --brand-accent: #97c32c;
   --brand-accent-hover: #63811a;
   --brand-accent-soft: #e1efbf;
-  --brand-gradient-start: #8855f3;
-  --brand-gradient-mid: #b98fe3;
-  --brand-gradient-end: #ee8ed1;
+  --brand-gradient-start: #97c32c;
+  --brand-gradient-mid: #b8d86e;
+  --brand-gradient-end: #e1efbf;
 }
 
 .dark {
