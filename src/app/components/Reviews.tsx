@@ -56,11 +56,11 @@ export function Reviews() {
   return (
     <>
       <section className="relative overflow-hidden px-5 py-16 md:px-20 md:py-24">
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#141414_0%,#181818_52%,#1b1f18_100%)]" />
-        <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(20,20,20,0.96),rgba(20,20,20,0))]" />
-        <div className="absolute right-[-6%] top-16 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(151,195,44,0.09),transparent_66%)]" />
+        <div className="absolute inset-0 opacity-74 bg-[linear-gradient(180deg,#f0ebe2_0%,#ece6db_52%,#e8f0dd_100%)]" />
+        <div className="absolute inset-x-0 top-0 h-24 opacity-72 bg-[linear-gradient(180deg,rgba(240,235,226,0.96),rgba(240,235,226,0))]" />
+        <div className="absolute right-[-6%] top-16 h-72 w-72 rounded-full opacity-72 bg-[radial-gradient(circle,rgba(151,195,44,0.12),transparent_66%)]" />
 
-        <div className="relative mx-auto max-w-6xl">
+        <div className="relative mx-auto max-w-[1600px]">
           <div className="mb-12 text-center">
             <p className="text-sm uppercase tracking-[0.24em] text-[var(--brand-accent)]">
               Доверие клиентов

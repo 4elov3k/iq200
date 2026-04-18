@@ -1,10 +1,9 @@
 import { PhoneCall, Send } from "lucide-react";
 import { MaxIcon } from "./icons/MaxIcon";
 
-const logoSrc = "/iq200/logo.webp";
 const phoneHref = "tel:+79877510556";
 const telegramHref = "https://t.me/MylenkovaLV";
-const maxHref = "https://max.ru/";
+const maxHref = "https://max.ru/u/f9LHodD0cOI2EiTS-n3EaE6xy4n1YnMwwxElSutbsqF435B0P6658RpTL5w";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -14,8 +13,7 @@ interface MobileMenuProps {
 
 export function MobileMenu({ isOpen, onClose, onOpenLeadForm }: MobileMenuProps) {
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     onClose();
   };
 
@@ -23,118 +21,52 @@ export function MobileMenu({ isOpen, onClose, onOpenLeadForm }: MobileMenuProps)
 
   return (
     <div className="fixed inset-0 z-50 lg:hidden">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-        onClick={onClose}
-      />
-
-      {/* Menu Panel */}
-      <div className="absolute inset-y-0 right-0 w-full max-w-sm bg-[var(--brand-bg)] shadow-2xl overflow-y-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-[var(--brand-border)]">
+      <div className="absolute inset-0 bg-[rgba(73,57,35,0.16)] backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-y-0 right-0 w-full max-w-sm overflow-y-auto bg-[var(--brand-bg)] shadow-2xl">
+        <div className="flex items-center justify-between border-b p-5" style={{ borderColor: "var(--brand-border)" }}>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 overflow-hidden flex-shrink-0">
-              <img
-                src={logoSrc}
-                alt="IQ 200"
-                className="w-full h-full object-contain"
-              />
-            </div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold tracking-[0.24em] text-[var(--brand-accent)]" style={{ borderColor: "var(--brand-border)" }}>IQ</div>
             <div>
-              <div className="text-white font-semibold text-lg">IQ 200</div>
-              <div className="text-white/60 text-xs uppercase">Digital-агентство</div>
+              <div className="text-lg font-semibold text-[var(--brand-title)]">IQ 200</div>
+              <div className="text-xs uppercase text-[rgba(95,71,43,0.55)]">Digital-агентство</div>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="w-10 h-10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
-            aria-label="Close menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+          <button onClick={onClose} className="flex h-10 w-10 items-center justify-center text-[var(--brand-text)] transition-colors hover:text-[var(--brand-title)]" aria-label="Close menu">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
         </div>
 
-        {/* Navigation */}
-        <nav className="p-5 space-y-2">
-          <button
-            onClick={() => scrollToSection("services")}
-            className="w-full text-left px-4 py-3 text-white hover:bg-[var(--brand-surface)] rounded-lg transition-colors"
-          >
-            Услуги
-          </button>
-          <button
-            onClick={() => scrollToSection("process")}
-            className="w-full text-left px-4 py-3 text-white hover:bg-[var(--brand-surface)] rounded-lg transition-colors"
-          >
-            Процесс работы
-          </button>
-          <button
-            onClick={() => scrollToSection("faq")}
-            className="w-full text-left px-4 py-3 text-white hover:bg-[var(--brand-surface)] rounded-lg transition-colors"
-          >
-            Вопросы и ответы
-          </button>
-          <button
-            onClick={() => scrollToSection("contact")}
-            className="w-full text-left px-4 py-3 text-white hover:bg-[var(--brand-surface)] rounded-lg transition-colors"
-          >
-            Контакты
-          </button>
+        <nav className="space-y-2 p-5">
+          {[
+            ["services", "Услуги"],
+            ["process", "Процесс работы"],
+            ["faq", "Вопросы и ответы"],
+            ["contact", "Контакты"],
+          ].map(([id, label]) => (
+            <button key={id} onClick={() => scrollToSection(id)} className="w-full rounded-lg px-4 py-3 text-left text-[var(--brand-title)] transition-colors hover:bg-[rgba(255,255,255,0.6)]">
+              {label}
+            </button>
+          ))}
         </nav>
 
-        {/* Contact Info */}
-        <div className="p-5 border-t border-[var(--brand-border)]">
+        <div className="border-t p-5" style={{ borderColor: "var(--brand-border)" }}>
           <div className="mb-6">
-            <div className="text-white/50 text-xs uppercase tracking-wider mb-2">Свяжитесь с нами</div>
-            <a
-              href={phoneHref}
-              className="text-white font-bold text-xl hover:text-[var(--brand-accent)] transition-colors"
-            >
-              +7 (987) 751-05-56
-            </a>
-            <p className="text-white/60 text-sm mt-1">Работаем с 8:00 до 20:00</p>
+            <div className="mb-2 text-xs uppercase tracking-wider text-[rgba(95,71,43,0.55)]">Свяжитесь с нами</div>
+            <a href={phoneHref} className="text-xl font-bold text-[var(--brand-title)] transition-colors hover:text-[var(--brand-accent-hover)]">+7 (987) 751-05-56</a>
+            <p className="mt-1 text-sm text-[var(--brand-text)]">Работаем с 8:00 до 20:00</p>
           </div>
 
-          <button
-            onClick={onOpenLeadForm}
-            className="relative group w-full"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
-            <div className="relative px-6 py-3 bg-gradient-to-r from-[var(--brand-accent)] to-[var(--brand-accent-soft)] rounded-full text-[var(--brand-bg)] font-bold text-sm uppercase text-center">
+          <button onClick={onOpenLeadForm} className="relative group w-full">
+            <div className="absolute inset-0 rounded-full bg-[var(--brand-accent)] blur-lg opacity-25 transition-opacity group-hover:opacity-40" />
+            <div className="relative rounded-full bg-[var(--brand-accent)] px-6 py-3 text-center text-sm font-bold uppercase text-white">
               Заказать звонок
             </div>
           </button>
 
-          {/* Social Links */}
-          <div className="flex justify-center gap-3 mt-6">
-            <a
-              href={phoneHref}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition hover:border-[var(--brand-accent)]"
-              aria-label="Позвонить"
-            >
-              <PhoneCall className="h-4 w-4" strokeWidth={1.9} />
-            </a>
-            <a
-              href={telegramHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)]"
-              aria-label="Telegram"
-            >
-              <Send className="h-4 w-4" strokeWidth={2} />
-            </a>
-            <a
-              href={maxHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent)]"
-              aria-label="MAX"
-            >
-              <MaxIcon className="h-4 w-4" />
-            </a>
+          <div className="mt-6 flex justify-center gap-3">
+            <a href={phoneHref} className="flex h-10 w-10 items-center justify-center rounded-full border bg-white text-[var(--brand-title)] transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent-hover)]" style={{ borderColor: "var(--brand-border)" }} aria-label="Позвонить"><PhoneCall className="h-4 w-4" strokeWidth={1.9} /></a>
+            <a href={telegramHref} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full border bg-white text-[var(--brand-title)] transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent-hover)]" style={{ borderColor: "var(--brand-border)" }} aria-label="Telegram"><Send className="h-4 w-4" strokeWidth={2} /></a>
+            <a href={maxHref} target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full border bg-white text-[var(--brand-title)] transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent-hover)]" style={{ borderColor: "var(--brand-border)" }} aria-label="MAX"><MaxIcon className="h-4 w-4" /></a>
           </div>
         </div>
       </div>

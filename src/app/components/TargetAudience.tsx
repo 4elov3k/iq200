@@ -49,17 +49,17 @@ export function TargetAudience() {
 
   return (
     <section className="relative overflow-hidden px-5 py-16 md:px-20 md:py-24">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,#f4f4f4_0%,#eef2df_48%,#f7f5fb_100%)]" />
-      <div className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top_left,rgba(151,195,44,0.18),transparent_56%)]" />
-      <div className="absolute inset-y-0 right-0 w-72 bg-[radial-gradient(circle_at_center,rgba(136,85,243,0.12),transparent_58%)]" />
+      <div className="absolute inset-0 opacity-70 bg-[linear-gradient(180deg,#f8f5ee_0%,#f1f7e2_50%,#fffdf8_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-32 opacity-80 bg-[radial-gradient(circle_at_top_left,rgba(151,195,44,0.18),transparent_56%)]" />
+      <div className="absolute inset-y-0 right-0 w-72 opacity-75 bg-[radial-gradient(circle_at_center,rgba(151,195,44,0.08),transparent_58%)]" />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="relative mx-auto max-w-[1600px]">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <p className="text-sm uppercase tracking-[0.24em] text-[var(--brand-accent-hover)]">
               Каталог сегментов
             </p>
-            <h2 className="mt-4 text-3xl font-bold text-[var(--brand-bg)] md:text-4xl lg:text-5xl">
+            <h2 className="mt-4 text-3xl font-bold text-[var(--brand-title)] md:text-4xl lg:text-5xl">
               Для кого наш подход
             </h2>
             <p className="mt-4 text-base leading-relaxed text-[color:rgba(23,23,23,0.68)] md:text-lg">
@@ -71,7 +71,7 @@ export function TargetAudience() {
             <button
               type="button"
               onClick={() => scrollCarousel("prev")}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-[color:rgba(23,23,23,0.12)] bg-white/80 text-[var(--brand-bg)] shadow-sm transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent-hover)]"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-[color:rgba(23,23,23,0.12)] bg-white/80 text-[var(--brand-title)] shadow-sm transition hover:border-[var(--brand-accent)] hover:text-[var(--brand-accent-hover)]"
               aria-label="Предыдущая карточка"
             >
               <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -81,7 +81,7 @@ export function TargetAudience() {
             <button
               type="button"
               onClick={() => scrollCarousel("next")}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-[color:rgba(23,23,23,0.12)] bg-[var(--brand-accent)] text-[var(--brand-bg)] shadow-sm transition hover:bg-[var(--brand-accent-hover)] hover:text-white"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-[color:rgba(23,23,23,0.12)] bg-[var(--brand-accent)] text-[var(--brand-title)] shadow-sm transition hover:bg-[var(--brand-accent-hover)] hover:text-white"
               aria-label="Следующая карточка"
             >
               <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -104,7 +104,7 @@ export function TargetAudience() {
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[linear-gradient(145deg,#97c32c_0%,#e1efbf_100%)] p-3 shadow-inner">
                   <audience.icon
                     aria-hidden="true"
-                    className="h-full w-full text-[var(--brand-bg)]"
+                    className="h-full w-full text-[var(--brand-title)]"
                     strokeWidth={1.8}
                   />
                 </div>
@@ -113,7 +113,7 @@ export function TargetAudience() {
                 </span>
               </div>
 
-              <h3 className="mt-8 text-2xl font-semibold leading-tight text-[var(--brand-bg)]">
+              <h3 className="mt-8 text-2xl font-semibold leading-tight text-[var(--brand-title)]">
                 {audience.text}
               </h3>
               <p className="mt-4 text-base leading-relaxed text-[color:rgba(23,23,23,0.68)]">
