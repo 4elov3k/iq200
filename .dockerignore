@@ -1,0 +1,18 @@
+.git
+.gitignore
+.idea
+.vercel
+.next
+node_modules
+dist
+dist-ssr
+*.log
+.DS_Store
+.env
+.env.local
+.env*.local
+src.zip
+Кейс экоскан
+Кейс ГК Снаб
+Кейс Пластматика
+Разработка_лендинга_для_рекламы_услуг_Digital_агентства_IQ_200.docx
