@@ -80,9 +80,9 @@ export function Problems({ onOpenLeadForm }: ProblemsProps) {
 
       <div className="relative mx-auto grid max-w-[1600px] items-center gap-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-14">
         <div>
-          <p className="text-sm uppercase tracking-[0.24em] text-[var(--brand-accent)]">Карта задач</p>
+          <p className="text-sm uppercase tracking-[0.24em] text-[var(--brand-accent)]">Что решаем</p>
           <h2 className="mt-4 text-3xl font-bold text-[var(--brand-title)] md:text-4xl lg:text-5xl">
-            С какими задачами к нам обычно приходят производственные компании
+            Какие задачи мы решаем для производственных компаний
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-[var(--brand-text)] md:text-lg">
             Показываем типовые проблемы, с которыми чаще всего приходят производственные компании: от устаревшего сайта и слабой структуры до непонятного результата от рекламы и SEO.

@@ -20,6 +20,7 @@ import {
 
 import { LeadPopup } from "../components/LeadPopup";
 import { Cases } from "../components/Cases";
+import { Reviews } from "../components/Reviews";
 import { MaxIcon } from "../components/icons/MaxIcon";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
 
@@ -37,7 +38,7 @@ const promoTheme = {
 } as React.CSSProperties;
 
 const promoLogoSrc = "/iq200/logo.webp";
-const promoMarketerHeroSrc = "/iq200/promo-marketer-hero.png";
+const promoMarketerHeroSrc = "/IMG_20260421_134124.png";
 
 const problems = [
   {
@@ -273,7 +274,7 @@ function PromoHeader({
         </div>
 
         <nav className="hidden items-center justify-center gap-6 text-sm font-medium text-[var(--promo-text)] xl:flex">
-          <button onClick={() => scrollToSection("problems")} className="transition-colors hover:text-[var(--promo-accent-strong)]">Проблемы</button>
+          <button onClick={() => scrollToSection("problems")} className="whitespace-nowrap transition-colors hover:text-[var(--promo-accent-strong)]">Что решаем</button>
           <button onClick={() => scrollToSection("services")} className="transition-colors hover:text-[var(--promo-accent-strong)]">Подход</button>
           <button onClick={() => scrollToSection("cases")} className="transition-colors hover:text-[var(--promo-accent-strong)]">Кейсы</button>
           <button onClick={() => scrollToSection("faq")} className="transition-colors hover:text-[var(--promo-accent-strong)]">Вопросы</button>
@@ -411,7 +412,7 @@ function PromoMenu({
 
         <nav className="space-y-2 p-5">
           {[
-            ["problems", "Проблемы"],
+            ["problems", "Что решаем"],
             ["services", "Подход"],
             ["cases", "Кейсы"],
             ["faq", "Вопросы"],
@@ -480,7 +481,7 @@ export default function PromoLanding() {
                   350+ клиентов
                 </div>
                 <h1 className="mt-8 max-w-4xl text-5xl font-semibold leading-[0.98] text-[var(--promo-title)] md:text-7xl">
-                  Ваш сайт и реклама не приносят заявки? Мы все исправим.
+                  Ваш сайт и реклама не приносят заявки?
                 </h1>
                 <p className="mt-8 max-w-3xl text-lg leading-8 text-[var(--promo-text)] md:text-xl">
                   Мы поможем вашему бизнесу получать стабильный поток целевых заявок с помощью эффективного SEO, рекламы и современных digital-стратегий.
@@ -516,14 +517,12 @@ export default function PromoLanding() {
               <div
                 className="relative overflow-hidden rounded-[1.6rem] border p-4 sm:p-6 lg:mt-[4.5rem] md:p-8"
                 style={{
-                  borderColor: "var(--promo-border)",
-                  background: "linear-gradient(180deg, rgba(255,255,255,0.92), rgba(252,247,240,0.86))",
-                  boxShadow: "var(--promo-shadow)",
+                  borderColor: "transparent",
+                  background: "transparent",
+                  boxShadow: "none",
                 }}
               >
-                <div className="absolute right-[-3rem] top-[-2rem] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(183,137,70,0.18),transparent_68%)] blur-3xl md:h-56 md:w-56" />
-
-                <div className="relative flex flex-col gap-6">
+                <div className="relative flex flex-col gap-3">
                   <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_280px] md:items-end md:gap-6">
                     <div className="min-w-0 pt-1 md:pt-6">
                       <div className="text-xs uppercase tracking-[0.28em] text-[var(--promo-accent)]">Премиальный подход</div>
@@ -533,14 +532,14 @@ export default function PromoLanding() {
                     </div>
 
                     <div className="pointer-events-none flex justify-center md:justify-end">
-                      <div className="relative h-[200px] w-[200px] overflow-hidden sm:h-[240px] sm:w-[240px] md:h-[320px] md:w-[280px]">
+                      <div className="relative h-[170px] w-[200px] overflow-hidden sm:h-[210px] sm:w-[240px] md:h-[320px] md:w-[280px]">
                         <Image
                           src={promoMarketerHeroSrc}
                           alt="Маркетолог IQ 200"
                           fill
                           loading="lazy"
                           sizes="(max-width: 639px) 200px, (max-width: 767px) 240px, 280px"
-                          className="object-cover object-top drop-shadow-[0_32px_72px_rgba(98,74,43,0.22)]"
+                          className="object-contain object-bottom"
                         />
                       </div>
                     </div>
@@ -549,12 +548,12 @@ export default function PromoLanding() {
                   <div className="rounded-[1.25rem] border bg-[rgba(255,255,255,0.52)] px-4 py-4 sm:rounded-[1.5rem] sm:px-5 sm:py-5" style={{ borderColor: "rgba(165,126,69,0.14)" }}>
                     <div className="grid gap-4 sm:gap-5">
                       {[
-                        "Убираем хаос между сайтом, SEO и рекламой",
-                        "Опираемся на заявки и экономику, а не на пустые отчеты",
-                        "Собираем спокойную, убедительную digital-систему под ваш бизнес",
+                        "Мы делаем рекламу, которая работает! Первые позиции в поиске и точный подбор аудитории для рекламы.",
+                        "Работаем с оплатой только за реальные заявки. Никаких пустых переходов без результата.",
+                        "Для этого у нас есть специалисты, которые делают ровно то, что нужно для успешного продвижения Вашего сайта.",
                       ].map((item) => (
-                        <div key={item} className="flex items-start gap-3">
-                          <div className="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--promo-accent)]" />
+                        <div key={item} className="grid grid-cols-[0.75rem_minmax(0,1fr)] items-start gap-x-3">
+                          <div className="mt-[0.4rem] h-3 w-1 rounded-full bg-[var(--promo-accent)]" />
                           <p className="text-sm leading-6 text-[var(--promo-text)] sm:text-base sm:leading-7">{item}</p>
                         </div>
                       ))}
@@ -568,7 +567,7 @@ export default function PromoLanding() {
           <section id="problems" className="px-5 py-16 md:px-8 md:py-24 lg:px-12">
             <div className="mx-auto max-w-7xl">
               <div className="max-w-3xl">
-                <div className="text-xs uppercase tracking-[0.28em] text-[var(--promo-accent)]">С какими задачами приходят</div>
+                <div className="text-xs uppercase tracking-[0.28em] text-[var(--promo-accent)]">Что решаем</div>
                 <h2 className="mt-5 text-4xl font-semibold leading-tight text-[var(--promo-title)] md:text-6xl">
                   Обычно проблема не в одном инструменте, а в том, как все собрано вместе.
                 </h2>
@@ -629,6 +628,8 @@ export default function PromoLanding() {
 
           <Cases />
 
+          <Reviews />
+
           <section className="px-5 py-16 md:px-8 md:py-24 lg:px-12">
             <div
               className="mx-auto max-w-7xl rounded-[2.4rem] border p-8 md:p-12"
@@ -638,21 +639,45 @@ export default function PromoLanding() {
                 boxShadow: "var(--promo-shadow)",
               }}
             >
-              <div className="max-w-3xl">
-                <div className="text-xs uppercase tracking-[0.28em] text-[var(--promo-accent)]">Следующий шаг</div>
-                <h2 className="mt-5 text-4xl font-semibold leading-tight text-[var(--promo-title)] md:text-6xl">
-                  Если хотите понятный разбор без пустых обещаний, начнем с аудита.
-                </h2>
-                <p className="mt-6 text-lg leading-8 text-[var(--promo-text)]">
-                  Посмотрим, что сейчас мешает заявкам, и покажем, какие действия стоит делать в первую очередь.
-                </p>
-                <button
-                  onClick={() => setLeadPopupOpen(true)}
-                  className="mt-10 rounded-full px-7 py-4 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:brightness-110"
-                  style={{ backgroundColor: "var(--promo-accent)" }}
+              <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:items-end lg:gap-12">
+                <div className="max-w-4xl">
+                  <div className="text-xs uppercase tracking-[0.28em] text-[var(--promo-accent)]">Следующий шаг</div>
+                  <h2 className="mt-5 max-w-5xl text-4xl font-semibold leading-tight text-[var(--promo-title)] md:text-6xl">
+                    Если хотите понятный разбор без пустых обещаний, начнем с аудита.
+                  </h2>
+                  <p className="mt-6 max-w-3xl text-lg leading-8 text-[var(--promo-text)]">
+                    Посмотрим, что сейчас мешает заявкам, и покажем, какие действия стоит делать в первую очередь.
+                  </p>
+                  <button
+                    onClick={() => setLeadPopupOpen(true)}
+                    className="mt-10 rounded-full px-7 py-4 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:brightness-110"
+                    style={{ backgroundColor: "var(--promo-accent)" }}
+                  >
+                    Запросить аудит
+                  </button>
+                </div>
+
+                <div
+                  className="rounded-[1.8rem] border bg-[rgba(255,255,255,0.68)] p-6 md:p-7"
+                  style={{ borderColor: "var(--promo-border)" }}
                 >
-                  Запросить аудит
-                </button>
+                  <div className="text-sm uppercase tracking-[0.22em] text-[var(--promo-accent)]">Что получите</div>
+                  <div className="mt-6 grid gap-4">
+                    {[
+                      "Короткий разбор сайта, SEO и рекламы без воды",
+                      "Понимание, где именно теряются заявки",
+                      "Список первых действий с понятным приоритетом",
+                    ].map((item) => (
+                      <div key={item} className="flex items-start gap-3">
+                        <div className="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--promo-accent)]" />
+                        <p className="text-base leading-7 text-[var(--promo-text)]">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-6 rounded-[1.2rem] bg-[rgba(151,195,44,0.1)] px-4 py-4 text-sm leading-6 text-[var(--promo-title)]">
+                    Обычно после такого аудита становится ясно, что исправлять в первую очередь и куда не стоит сливать бюджет.
+                  </div>
+                </div>
               </div>
             </div>
           </section>

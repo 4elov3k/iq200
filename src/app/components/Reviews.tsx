@@ -65,10 +65,10 @@ export function Reviews() {
             <p className="text-sm uppercase tracking-[0.24em] text-[var(--brand-accent)]">
               Доверие клиентов
             </p>
-            <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+            <h2 className="mt-4 text-3xl font-bold text-[var(--brand-title)] md:text-4xl lg:text-5xl">
               Благодарственные письма, которые подтверждают результат нашей работы
             </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-sm leading-6 text-white/62 md:text-base">
+            <p className="mx-auto mt-4 max-w-3xl text-sm leading-6 text-[var(--brand-text)] md:text-base">
               Откройте любое письмо и посмотрите, как клиенты оценивают наш подход, качество работы и итоговый результат.
             </p>
           </div>
@@ -95,7 +95,7 @@ export function Reviews() {
                   )}
                 </div>
                 <div className="border-t border-[var(--brand-border)] px-4 py-3">
-                  <h3 className="text-sm font-medium text-white md:text-base">
+                  <h3 className="text-sm font-medium text-[var(--brand-title)] md:text-base">
                     {review.title}
                   </h3>
                   <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[var(--brand-accent)]">
